@@ -10,6 +10,9 @@
 
 #include "ofMain.h"
 
+// ofxAddon includes
+#include "ofxJSON.h"
+
 // Personal includes
 #include "Wall.hpp"
 

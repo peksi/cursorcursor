@@ -5,6 +5,7 @@
 // ofxAddon includes
 #include "ofxGui.h"
 #include "ofxOsc.h"
+#include "ofxJSON.h"
 
 // Personal includes
 #include "WallOrganiser.hpp"
