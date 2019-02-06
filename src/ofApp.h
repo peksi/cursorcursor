@@ -2,6 +2,13 @@
 
 #include "ofMain.h"
 
+// ofxAddon includes
+#include "ofxGui.h"
+#include "ofxOsc.h"
+
+// Personal includes
+#include "WallOrganiser.hpp"
+
 class ofApp : public ofBaseApp{
 
 	public:
@@ -21,4 +28,5 @@ class ofApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
 		
+    
 };
