@@ -10,6 +10,7 @@
 Wall::Wall() {
     
 }
-void Wall::setup() {
-    
+void Wall::setup(vector<ofVec2f> _wallCoords) {
+    wallCoordVector = _wallCoords;
 }
+

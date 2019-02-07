@@ -19,7 +19,12 @@
 class WallOrganiser {
 public:
     WallOrganiser();
-    void setup();
+    void setup(ofxJSONElement _JSONconfig);
+    void addWall(vector<ofVec2f> _wallCoords);
+    void addWalls(vector<vector<ofVec2f>> _wallCoordsVector);
+    void displayWalls();
+    
+    vector<Wall> wallVector;
 private:
 };
 

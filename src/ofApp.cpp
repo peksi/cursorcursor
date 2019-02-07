@@ -2,7 +2,16 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-
+    
+    std::string file = "config.json";
+    bool parsingSuccessful = JSONconfig.open(file);
+    
+    if (parsingSuccessful) {
+        wallOrganiser.setup(JSONconfig);
+    }
+    
+    
+    
 }
 
 //--------------------------------------------------------------

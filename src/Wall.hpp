@@ -16,7 +16,9 @@
 class Wall {
 public:
     Wall();
-    void setup();
+    void setup(vector<ofVec2f> _wallCoords);
+    
+    vector<ofVec2f> wallCoordVector;
 private:
 };
 
