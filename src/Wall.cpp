@@ -10,7 +10,11 @@
 Wall::Wall() {
     
 }
-void Wall::setup(vector<ofVec2f> _wallCoords) {
+void Wall::setup(vector<ofVec2f> _wallCoords, int _wallId) {
     wallCoordVector = _wallCoords;
+    wallId = _wallId;
+}
+void Wall::attachProjector(vector<ofVec2f> _projectorCoords, int _projectorId) {
+    
 }
 

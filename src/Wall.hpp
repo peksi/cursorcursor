@@ -16,9 +16,11 @@
 class Wall {
 public:
     Wall();
-    void setup(vector<ofVec2f> _wallCoords);
+    void setup(vector<ofVec2f> _wallCoords, int _wallId);
+    void attachProjector(vector<ofVec2f> _projectorCoords, int _projectorId);
     
     vector<ofVec2f> wallCoordVector;
+    int wallId;
 private:
 };
 

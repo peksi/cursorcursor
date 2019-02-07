@@ -1,3 +1,3 @@
 ofxGui
-ofxJSON
 ofxOsc
+ofxXmlSettings

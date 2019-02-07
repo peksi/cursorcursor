@@ -5,7 +5,7 @@
 // ofxAddon includes
 #include "ofxGui.h"
 #include "ofxOsc.h"
-#include "ofxJSON.h"
+#include "ofxXmlSettings.h"
 
 // Personal includes
 #include "WallOrganiser.hpp"
@@ -31,5 +31,5 @@ class ofApp : public ofBaseApp{
 		
     WallOrganiser wallOrganiser;
     
-    ofxJSONElement JSONconfig;
+    ofxXmlSettings XMLconfig;
 };

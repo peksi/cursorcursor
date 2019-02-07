@@ -3,11 +3,11 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
     
-    std::string file = "config.json";
-    bool parsingSuccessful = JSONconfig.open(file);
+    string file = "config.xml";
+    bool parsingSuccessful = XMLconfig.loadFile(file);
     
     if (parsingSuccessful) {
-        wallOrganiser.setup(JSONconfig);
+        wallOrganiser.setup(XMLconfig);
     }
     
     

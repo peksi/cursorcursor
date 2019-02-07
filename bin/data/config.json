@@ -1,0 +1,50 @@
+{
+  "roomSetup": {
+    "walls": [
+        {
+            "id": 1,
+            "beginX": 0,
+            "beginY": 0,
+            "endX": 100,
+            "endY": 0
+        },
+        {
+            "id": 2,
+            "beginX": 100,
+            "beginY": 0,
+            "endX": 100,
+            "endY": 100
+        },
+        {
+            "id": 3,
+            "beginX": 100,
+            "beginY": 100,
+            "endX": 0,
+            "endY": 100
+        },
+        {
+            "id": 4,
+            "beginX": 0,
+            "beginY": 100,
+            "endX": 0,
+            "endY": 0
+        }
+    ],
+    "projectionSurfaces": [
+        {
+            "wallId": 1,
+            "beginX": 10,
+            "beginY": 10,
+            "endX": 90,
+            "endY": 90
+        },
+        {
+            "wallId": 3,
+            "beginX": 10,
+            "beginY": 10,
+            "endX": 90,
+            "endY": 90
+        }
+    ]
+}
+}

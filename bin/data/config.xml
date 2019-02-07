@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11134" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11134"/>
+    </dependencies>
+    <roomSetup>
+        <projectionSurfaces>
+            <element>
+                <beginX>10</beginX>
+                <beginY>10</beginY>
+                <endX>90</endX>
+                <endY>90</endY>
+                <wallId>1</wallId>
+                <projectorId>0</projectorId>
+            </element>
+            <element>
+                <beginX>10</beginX>
+                <beginY>10</beginY>
+                <endX>90</endX>
+                <endY>90</endY>
+                <wallId>3</wallId>
+                <projectorId>1</projectorId>
+            </element>
+        </projectionSurfaces>
+        <walls>
+            <element>
+                <beginX>0</beginX>
+                <beginY>0</beginY>
+                <endX>100</endX>
+                <endY>0</endY>
+                <id>1</id>
+            </element>
+            <element>
+                <beginX>100</beginX>
+                <beginY>0</beginY>
+                <endX>100</endX>
+                <endY>100</endY>
+                <id>2</id>
+            </element>
+            <element>
+                <beginX>100</beginX>
+                <beginY>100</beginY>
+                <endX>0</endX>
+                <endY>100</endY>
+                <id>3</id>
+            </element>
+            <element>
+                <beginX>0</beginX>
+                <beginY>100</beginY>
+                <endX>0</endX>
+                <endY>0</endY>
+                <id>4</id>
+            </element>
+        </walls>
+    </roomSetup>
+</document>
