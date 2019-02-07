@@ -1,0 +1,48 @@
+roomSetup: {
+    walls: [
+        {
+            id: 1,
+            startX: 0,
+            startY: 0,
+            endX: 100,
+            endY: 0
+        },
+        {
+            id: 2,
+            startX: 100,
+            startY: 0,
+            endX: 100,
+            endY: 100
+        },
+        {
+            id: 3,
+            startX: 100,
+            startY: 100,
+            endX: 0,
+            endY: 100
+        },
+        {
+            id: 4,
+            startX: 0,
+            startY: 100,
+            endX: 0,
+            endY: 0
+        }
+    ],
+    projectionSurfaces: [
+        {
+            wallId: 1,
+            startX: 10,
+            startY: 10,
+            endX: 90,
+            endY: 90
+        },
+        {
+            wallId: 3,
+            startX: 10,
+            startY: 10,
+            endX: 90,
+            endY: 90
+        }
+    ]
+}
