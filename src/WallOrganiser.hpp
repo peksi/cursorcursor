@@ -23,8 +23,12 @@ public:
     void addWall(vector<ofVec2f> _wallCoords, int _wallId);
     void addWalls(vector<vector<ofVec2f>> _wallCoordsVector, vector<int> _wallIdVector);
     void displayWalls();
+    void displayProjections();
     
     vector<Wall> wallVector;
+    vector<ofBoxPrimitive> wallPrimitiveVector;
+    vector<ofBoxPrimitive> projectionPrimitiveVector;
+    vector<float> wallAngleVector;
 private:
 };
 

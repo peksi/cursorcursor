@@ -11,7 +11,7 @@
                 <endX>90</endX>
                 <endY>90</endY>
                 <wallId>1</wallId>
-                <projectorId>0</projectorId>
+                <projectionId>0</projectionId>
             </element>
             <element>
                 <beginX>10</beginX>
@@ -19,7 +19,7 @@
                 <endX>90</endX>
                 <endY>90</endY>
                 <wallId>3</wallId>
-                <projectorId>1</projectorId>
+                <projectionId>1</projectionId>
             </element>
         </projectionSurfaces>
         <walls>
@@ -40,16 +40,23 @@
             <element>
                 <beginX>100</beginX>
                 <beginY>100</beginY>
-                <endX>0</endX>
-                <endY>100</endY>
+                <endX>150</endX>
+                <endY>300</endY>
                 <id>3</id>
+            </element>
+            <element>
+                <beginX>0</beginX>
+                <beginY>200</beginY>
+                <endX>150</endX>
+                <endY>300</endY>
+                <id>4</id>
             </element>
             <element>
                 <beginX>0</beginX>
                 <beginY>100</beginY>
                 <endX>0</endX>
                 <endY>0</endY>
-                <id>4</id>
+                <id>5</id>
             </element>
         </walls>
     </roomSetup>
