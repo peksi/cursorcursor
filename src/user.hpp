@@ -13,8 +13,15 @@
 class User {
 public:
     User();
+    ofSpherePrimitive userHead;
+    
+    
     void setup();
+    void displayUser();
+    void updateUser(ofVec3f position, ofVec3f rotation);
 private:
+    ofVec3f _position;
+    ofVec3f _rotation;
 };
 
 #endif /* user_hpp */

@@ -1,5 +1,7 @@
 #pragma once
 
+#include <string>
+#include <string.h>
 #include "ofMain.h"
 
 // ofxAddon includes
@@ -9,6 +11,10 @@
 
 // Personal includes
 #include "WallOrganiser.hpp"
+#include "user.hpp"
+
+#define PORT 12001
+#define NUM_MSG_STRINGS 20
 
 class ofApp : public ofBaseApp{
 
@@ -31,9 +37,17 @@ class ofApp : public ofBaseApp{
 		void gotMessage(ofMessage msg);
 		
     WallOrganiser wallOrganiser;
+    User user;
+    
     
     ofxXmlSettings XMLconfig;
     
     ofEasyCam virtualCamera;
     float xOrigin,yOrigin,zOrigin;
+    
+    ofxOscReceiver receiver;
+    
+    int currentMsgString;
+    string msgStrings[NUM_MSG_STRINGS];
+    float timers[NUM_MSG_STRINGS];
 };

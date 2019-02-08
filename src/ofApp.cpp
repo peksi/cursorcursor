@@ -15,11 +15,34 @@ void ofApp::setup(){
     xOrigin = 0.0;
     yOrigin = 0.0;
     zOrigin = -100.0;
+    
+    // OSC
+    std::cout << "listening for osc messages on port " << PORT << "\n";
+    receiver.setup( PORT );
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
-
+    
+    
+    // Handle OSC data. You should have processing sketch running.
+    
+    // check for waiting messages
+    while(receiver.hasWaitingMessages()){
+        // get the next message
+        ofxOscMessage m;
+        receiver.getNextMessage(m);
+        if(m.getAddress() == "/pozyx"){ // check pozyx messages
+            if( m.getArgType(0) == OFXOSC_TYPE_STRING){ // check that we're getting strings
+                cout << m.getArgAsString(0) << "\n";
+            }
+            else{
+                cout << "unhandled argument type " + m.getArgTypeName(0) << "\n";
+            }
+        }
+    }
+    
+    user.updateUser(ofVec3f(30, 30, 30), ofVec3f(0, 0, 0));
 }
 
 //--------------------------------------------------------------
@@ -36,6 +59,8 @@ void ofApp::draw(){
     wallOrganiser.displayProjections();
     
     ofPopMatrix();
+    
+    user.displayUser();
     
     drawAxis();
     virtualCamera.end();
