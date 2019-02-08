@@ -23,6 +23,7 @@ public:
     void addWall(vector<ofVec2f> _wallCoords, int _wallId);
     void addWalls(vector<vector<ofVec2f>> _wallCoordsVector, vector<int> _wallIdVector);
     void displayWalls();
+    void displayGroundplane();
     void displayProjections();
     
     vector<Wall> wallVector;

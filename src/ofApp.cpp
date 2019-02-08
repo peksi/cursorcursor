@@ -12,9 +12,9 @@ void ofApp::setup(){
     }
     
     virtualCamera.setTarget(ofVec3f(0, 0 ,0));
-    xOrigin = 0.0;
-    yOrigin = 0.0;
-    zOrigin = -100.0;
+    xOrigin = -340.0;
+    yOrigin = -600.0;
+    zOrigin = 300;
 }
 
 //--------------------------------------------------------------
@@ -32,6 +32,7 @@ void ofApp::draw(){
     ofRotateDeg(180, 1, 0, 0);
     ofTranslate(xOrigin,yOrigin,zOrigin);
     
+    wallOrganiser.displayGroundplane();
     wallOrganiser.displayWalls();
     wallOrganiser.displayProjections();
     
@@ -47,16 +48,16 @@ void ofApp::draw(){
 void ofApp::keyPressed(int key){
     switch (key) {
         case OF_KEY_UP:
-            yOrigin ++;
+            yOrigin += 5;
             break;
         case OF_KEY_DOWN:
-            yOrigin --;
+            yOrigin -= 5;
             break;
         case OF_KEY_LEFT:
-            xOrigin ++;
+            xOrigin += 5;
             break;
         case OF_KEY_RIGHT:
-            xOrigin --;
+            xOrigin -= 5;
             break;
     }
 

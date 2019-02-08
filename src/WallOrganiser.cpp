@@ -32,27 +32,28 @@ void WallOrganiser::setup(ofxXmlSettings _XMLconfig) {
         
         addWall(wallCoords,wallId);
         
-        // Make wall primitives
+        // MAKE WALL PRIMITIVES
         float wallWidth = ofVec2f(beginX,beginY).distance(ofVec2f(endX,endY));
         
+        // Calculate rotation angles for wall
         ofVec2f constVector = ofVec2f(1.0,0.0);
         ofVec2f normVector = ofVec2f(abs(endX - beginX),abs(endY - beginY));
         float wallAngle = constVector.angle(normVector);
         wallAngleVector.push_back(wallAngle);
-        
-        cout << "current wall angle";
-        cout << wallAngle << endl;
-        wallPrimitiveVector.push_back(*new ofBoxPrimitive(wallWidth, 100, 3));
-        wallPrimitiveVector[wallPrimitiveVector.size()-1].setPosition((beginX+endX)/2, (beginY+endY)/2, 50);
-        wallPrimitiveVector[wallPrimitiveVector.size()-1].rotateDeg(90, ofVec3f(1,0,0)); // Rotate to stand upright in z-space
-        wallPrimitiveVector[wallPrimitiveVector.size()-1].rotateDeg(wallAngle, ofVec3f(0,0,1)); // Rotate to desired angle
+
+        ofBoxPrimitive tempWall = *new ofBoxPrimitive(wallWidth, 100, 3);
+        tempWall.setPosition((beginX+endX)/2, (beginY+endY)/2, -50); // Placed by center coordinate (50 to push walls on floor plane)
+        tempWall.rotateDeg(90, ofVec3f(1,0,0)); // Rotate to stand upright in z-space
+        tempWall.rotateDeg(wallAngle, ofVec3f(0,0,1)); // Rotate to desired angle
         
         // Color all sides for clear visualisation
         for (int i = 0; i < 6; i++) {
-            wallPrimitiveVector[wallPrimitiveVector.size()-1].setSideColor(i, ofColor(ofRandom(0,125),
-                                                                                      ofRandom(0,125),
-                                                                                      ofRandom(0,125)));
+            tempWall.setSideColor(i, ofColor(ofRandom(0,125),
+                                             ofRandom(0,125),
+                                             ofRandom(0,125)));
         }
+        
+        wallPrimitiveVector.push_back(tempWall);
     }
     
     // PROJECTOR SETUP
@@ -77,28 +78,6 @@ void WallOrganiser::setup(ofxXmlSettings _XMLconfig) {
                 projectionCoords.push_back(ofVec2f(pEndX,pEndY));
                 
                 wallVector[j].attachProjection(projectionCoords,projectionId);
-                
-                // Make projection primitives
-                float projectionWidth = ofVec2f(pBeginX,pBeginY).distance(ofVec2f(pEndX,pEndY));
-                ofBoxPrimitive currentWallPrimitive = wallPrimitiveVector[j];
-                ofVec3f currentWallPosition = currentWallPrimitive.getPosition();
-                float currentWallWidth = currentWallPrimitive.getWidth();
-                
-                float yOffPlacement = sin(wallAngleVector[wallPairId-1])*((currentWallWidth/2)-pBeginX);
-                float xOffPlacement = cos(wallAngleVector[wallPairId-1])*((currentWallWidth/2)-pBeginX);
-                
-                
-                cout << xOffPlacement << endl;
-                
-                projectionPrimitiveVector.push_back(*new ofBoxPrimitive(abs(pEndX-pBeginX),abs(pEndY-pBeginY),5));
-                projectionPrimitiveVector[projectionPrimitiveVector.size()-1].setPosition(currentWallPosition.x,
-                                                                                          currentWallPosition.y - yOffPlacement,
-                                                                                          currentWallPosition.z + (pBeginY+pEndY)/2 - 50);
-                
-                
-                
-                projectionPrimitiveVector[projectionPrimitiveVector.size()-1].rotateDeg(90, ofVec3f(1,0,0)); // Rotate to stand upright in z-space
-                projectionPrimitiveVector[projectionPrimitiveVector.size()-1].rotateDeg(wallAngleVector[wallPairId-1],ofVec3f(0,0,1)); // Rotate same as parent wall
             }
         }
         _XMLconfig.popTag();
@@ -141,23 +120,15 @@ void WallOrganiser::displayWalls() {
         wallPrimitiveVector[i].draw();
     }
 }
+void WallOrganiser::displayGroundplane() {
+    ofPushMatrix();
+    ofPushStyle();
+    ofSetColor(70);
+    ofTranslate(680/2, 1400/2);
+    ofDrawPlane(0, 0, 5, 680, 1400);
+    ofPopStyle();
+    ofPopMatrix();
+}
 void WallOrganiser::displayProjections() {
-    /*
-    for (int i = 0; i < wallVector.size(); i++) {
-        for (int j = 0; j < wallVector[i].projectionVector.size(); j++) {
-            ofPushStyle();
-            ofSetColor(0, 0, 255);
-            ofSetLineWidth(3);
-            ofDrawLine(wallVector[i].projectionVector[j].projectionCoordVector[0].x,
-                       wallVector[i].projectionVector[j].projectionCoordVector[0].y,
-                       wallVector[i].projectionVector[j].projectionCoordVector[1].x,
-                       wallVector[i].projectionVector[j].projectionCoordVector[1].y);
-            ofPopStyle();
-        }
-    }
-     */
-    
-    for (int j = 0; j < projectionPrimitiveVector.size(); j++) {
-        projectionPrimitiveVector[j].draw();
-    }
+
 }
