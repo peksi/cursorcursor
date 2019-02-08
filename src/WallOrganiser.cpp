@@ -38,10 +38,11 @@ void WallOrganiser::setup(ofxXmlSettings _XMLconfig) {
         ofVec2f constVector = ofVec2f(1.0,0.0);
         ofVec2f normVector = ofVec2f(abs(endX - beginX),abs(endY - beginY));
         float wallAngle = constVector.angle(normVector);
+        wallAngleVector.push_back(wallAngle);
         
         cout << "current wall angle";
         cout << wallAngle << endl;
-        wallPrimitiveVector.push_back(*new ofBoxPrimitive(wallWidth, 100, 5));
+        wallPrimitiveVector.push_back(*new ofBoxPrimitive(wallWidth, 100, 3));
         wallPrimitiveVector[wallPrimitiveVector.size()-1].setPosition((beginX+endX)/2, (beginY+endY)/2, 50);
         wallPrimitiveVector[wallPrimitiveVector.size()-1].rotateDeg(90, ofVec3f(1,0,0)); // Rotate to stand upright in z-space
         wallPrimitiveVector[wallPrimitiveVector.size()-1].rotateDeg(wallAngle, ofVec3f(0,0,1)); // Rotate to desired angle
@@ -63,8 +64,8 @@ void WallOrganiser::setup(ofxXmlSettings _XMLconfig) {
         _XMLconfig.pushTag("element",i);
         int wallPairId = _XMLconfig.getValue("wallId", 0);
         
-        for (Wall w : wallVector) {
-            if (w.id == wallPairId) {
+        for (int j = 0; j < wallVector.size(); j++) {
+            if (wallVector[j].id == wallPairId) {
                 float pBeginX = _XMLconfig.getValue("beginX", 0);
                 float pBeginY = _XMLconfig.getValue("beginY", 0);
                 float pEndX = _XMLconfig.getValue("endX", 0);
@@ -75,12 +76,29 @@ void WallOrganiser::setup(ofxXmlSettings _XMLconfig) {
                 projectionCoords.push_back(ofVec2f(pBeginX,pBeginY));
                 projectionCoords.push_back(ofVec2f(pEndX,pEndY));
                 
-                w.attachProjection(projectionCoords,projectionId);
+                wallVector[j].attachProjection(projectionCoords,projectionId);
                 
                 // Make projection primitives
                 float projectionWidth = ofVec2f(pBeginX,pBeginY).distance(ofVec2f(pEndX,pEndY));
+                ofBoxPrimitive currentWallPrimitive = wallPrimitiveVector[j];
+                ofVec3f currentWallPosition = currentWallPrimitive.getPosition();
+                float currentWallWidth = currentWallPrimitive.getWidth();
                 
-                projectionPrimitiveVector.push_back(*new ofBoxPrimitive(projectionWidth,100,5));
+                float yOffPlacement = sin(wallAngleVector[wallPairId-1])*((currentWallWidth/2)-pBeginX);
+                float xOffPlacement = cos(wallAngleVector[wallPairId-1])*((currentWallWidth/2)-pBeginX);
+                
+                
+                cout << xOffPlacement << endl;
+                
+                projectionPrimitiveVector.push_back(*new ofBoxPrimitive(abs(pEndX-pBeginX),abs(pEndY-pBeginY),5));
+                projectionPrimitiveVector[projectionPrimitiveVector.size()-1].setPosition(currentWallPosition.x,
+                                                                                          currentWallPosition.y - yOffPlacement,
+                                                                                          currentWallPosition.z + (pBeginY+pEndY)/2 - 50);
+                
+                
+                
+                projectionPrimitiveVector[projectionPrimitiveVector.size()-1].rotateDeg(90, ofVec3f(1,0,0)); // Rotate to stand upright in z-space
+                projectionPrimitiveVector[projectionPrimitiveVector.size()-1].rotateDeg(wallAngleVector[wallPairId-1],ofVec3f(0,0,1)); // Rotate same as parent wall
             }
         }
         _XMLconfig.popTag();
@@ -124,6 +142,7 @@ void WallOrganiser::displayWalls() {
     }
 }
 void WallOrganiser::displayProjections() {
+    /*
     for (int i = 0; i < wallVector.size(); i++) {
         for (int j = 0; j < wallVector[i].projectionVector.size(); j++) {
             ofPushStyle();
@@ -134,8 +153,11 @@ void WallOrganiser::displayProjections() {
                        wallVector[i].projectionVector[j].projectionCoordVector[1].x,
                        wallVector[i].projectionVector[j].projectionCoordVector[1].y);
             ofPopStyle();
-            
-            projectionPrimitiveVector[i].draw();
         }
+    }
+     */
+    
+    for (int j = 0; j < projectionPrimitiveVector.size(); j++) {
+        projectionPrimitiveVector[j].draw();
     }
 }

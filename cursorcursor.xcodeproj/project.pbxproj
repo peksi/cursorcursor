@@ -39,6 +39,7 @@
 		E4B69E210A3A1BDC003C02F2 /* ofApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4B69E1E0A3A1BDC003C02F2 /* ofApp.cpp */; };
 		F24659E223C9B1B9855971F2 /* WallOrganiser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46121130A96B3E7D60A25BBA /* WallOrganiser.cpp */; };
 		F285EB3169F1566CA3D93C20 /* ofxPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E112B3AEBEA2C091BF2B40AE /* ofxPanel.cpp */; };
+		F2C7A3B0220D7448004ECFA3 /* user.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F2C7A3AE220D7448004ECFA3 /* user.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -143,6 +144,8 @@
 		F2B8A412220C2A130098E5BC /* cursorcursorDebug.app */ = {isa = PBXFileReference; lastKnownFileType = wrapper.application; path = cursorcursorDebug.app; sourceTree = "<group>"; };
 		F2B8A415220C2A130098E5BC /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		F2B8A417220C2A130098E5BC /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = config.xml; sourceTree = "<group>"; };
+		F2C7A3AE220D7448004ECFA3 /* user.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = user.cpp; sourceTree = "<group>"; };
+		F2C7A3AF220D7448004ECFA3 /* user.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = user.hpp; sourceTree = "<group>"; };
 		F4F5B6B8BA2BD52C646ED908 /* OscException.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = OscException.h; path = ../../../addons/ofxOsc/libs/oscpack/src/osc/OscException.h; sourceTree = SOURCE_ROOT; };
 		F7FBC56859535E597B24BB91 /* NetworkingUtils.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = NetworkingUtils.h; path = ../../../addons/ofxOsc/libs/oscpack/src/ip/NetworkingUtils.h; sourceTree = SOURCE_ROOT; };
 		F8EFAA373D2D096F69C9256E /* Wall.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = Wall.cpp; path = src/Wall.cpp; sourceTree = SOURCE_ROOT; };
@@ -342,6 +345,8 @@
 			children = (
 				E4B69E1D0A3A1BDC003C02F2 /* main.cpp */,
 				E4B69E1E0A3A1BDC003C02F2 /* ofApp.cpp */,
+				F2C7A3AE220D7448004ECFA3 /* user.cpp */,
+				F2C7A3AF220D7448004ECFA3 /* user.hpp */,
 				E4B69E1F0A3A1BDC003C02F2 /* ofApp.h */,
 				46121130A96B3E7D60A25BBA /* WallOrganiser.cpp */,
 				F8EFAA373D2D096F69C9256E /* Wall.cpp */,
@@ -528,6 +533,7 @@
 				879A251454401BC0B6E4F238 /* OscTypes.cpp in Sources */,
 				0546D1A38E13BD319CC9755B /* OscReceivedElements.cpp in Sources */,
 				C4782ECC372420ACE0615B74 /* OscPrintReceivedElements.cpp in Sources */,
+				F2C7A3B0220D7448004ECFA3 /* user.cpp in Sources */,
 				67FE4C7B15C2F0478C8126C2 /* NetworkingUtils.cpp in Sources */,
 				510CAFE035E576A4E1502D52 /* UdpSocket.cpp in Sources */,
 				ADE367465D2A8EBAD4C7A8D9 /* IpEndpointName.cpp in Sources */,

@@ -117,7 +117,7 @@ void ofApp::drawAxis() {
     ofSetColor(255, 0, 0);
     ofSetLineWidth(5);
     ofDrawLine(0, 0, 0,
-               50, 0, 0);
+               250, 0, 0);
     ofPopStyle();
     
     // Y-Axis
@@ -125,7 +125,7 @@ void ofApp::drawAxis() {
     ofSetColor(0, 255, 0);
     ofSetLineWidth(5);
     ofDrawLine(0, 0, 0,
-               0, 50, 0);
+               0,250, 0);
     ofPopStyle();
     
     // Z-Axis
@@ -133,7 +133,7 @@ void ofApp::drawAxis() {
     ofSetColor(0, 0, 255);
     ofSetLineWidth(5);
     ofDrawLine(0, 0, 0,
-               0, 0, 50);
+               0, 0, 250);
     ofPopStyle();
     
     // Origin
