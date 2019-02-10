@@ -22,6 +22,7 @@ public:
     vector<ofVec2f> wallCoordVector;
     vector<ProjectionSurface> projectionVector;
     int id;
+    bool projectionAttached;
 private:
 };
 

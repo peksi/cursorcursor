@@ -11,23 +11,23 @@
                 <endX>90</endX>
                 <endY>90</endY>
                 <wallId>1</wallId>
-                <projectionId>0</projectionId>
-            </element>
-            <element>
-                <beginX>10</beginX>
-                <beginY>10</beginY>
-                <endX>150</endX>
-                <endY>90</endY>
-                <wallId>3</wallId>
                 <projectionId>1</projectionId>
             </element>
             <element>
                 <beginX>10</beginX>
                 <beginY>10</beginY>
+                <endX>200</endX>
+                <endY>90</endY>
+                <wallId>2</wallId>
+                <projectionId>2</projectionId>
+            </element>
+            <element>
+                <beginX>50</beginX>
+                <beginY>00</beginY>
                 <endX>90</endX>
                 <endY>90</endY>
-                <wallId>4</wallId>
-                <projectionId>2</projectionId>
+                <wallId>3</wallId>
+                <projectionId>3</projectionId>
             </element>
         </projectionSurfaces>
         <walls>
@@ -46,25 +46,11 @@
                 <id>2</id>
             </element>
             <element>
-                <beginX>100</beginX>
-                <beginY>100</beginY>
-                <endX>150</endX>
-                <endY>300</endY>
+                <beginX>680</beginX>
+                <beginY>1150</beginY>
+                <endX>500</endX>
+                <endY>500</endY>
                 <id>3</id>
-            </element>
-            <element>
-                <beginX>0</beginX>
-                <beginY>200</beginY>
-                <endX>150</endX>
-                <endY>300</endY>
-                <id>4</id>
-            </element>
-            <element>
-                <beginX>0</beginX>
-                <beginY>100</beginY>
-                <endX>0</endX>
-                <endY>0</endY>
-                <id>5</id>
             </element>
         </walls>
     </roomSetup>

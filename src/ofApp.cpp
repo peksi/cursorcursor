@@ -2,20 +2,27 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-    ofEnableDepthTest();
-    
+    // XML
     string file = "config.xml";
     bool parsingSuccessful = XMLconfig.loadFile(file);
-    
     if (parsingSuccessful) {
         wallOrganiser.setup(XMLconfig);
     }
     
-    virtualCamera.setTarget(ofVec3f(0, 0 ,0));
+    ofEnableDepthTest();
+    showCamera = false;
+    show3D = true;
+    showLog = false;
     
-    xOrigin = 0.0;
-    yOrigin = 0.0;
-    zOrigin = -100.0;
+    camera.setGrabber(std::make_shared<ofxPS3EyeGrabber>());
+    camera.setPixelFormat(OF_PIXELS_NATIVE);
+    camera.setDesiredFrameRate(75);
+    camera.setup(640, 480, true);
+    
+    virtualCamera.setTarget(ofVec3f(0, 0 ,0));
+    xOrigin = -340.0;
+    yOrigin = -600.0;
+    zOrigin = 300.0;
     
     // OSC
     std::cout << "listening for osc messages on port " << PORT << "\n";
@@ -24,10 +31,9 @@ void ofApp::setup(){
 
 //--------------------------------------------------------------
 void ofApp::update(){
-    
+    camera.update();
     
     // Handle OSC data. You should have processing sketch running.
-    
     // check for waiting messages
     while(receiver.hasWaitingMessages()){
         // get the next message
@@ -50,23 +56,42 @@ void ofApp::update(){
 void ofApp::draw(){
     ofBackground(40);
     
-    virtualCamera.begin();
+    // EYE-CAMERA IMAGE
+    if (showCamera) {
+        ofPushMatrix();
+        camera.draw(0, 0);
+        ofPopMatrix();
+    }
     
-    ofPushMatrix();
-    ofRotateDeg(180, 1, 0, 0);
-    ofTranslate(xOrigin,yOrigin,zOrigin);
+    // 3D VISUALISATION MATRIX
+    if (show3D) {
+        virtualCamera.begin();
+        
+        ofPushMatrix();
+        ofRotateDeg(180, 1, 0, 0);
+        ofTranslate(xOrigin,yOrigin,zOrigin);
+        
+        wallOrganiser.displayGroundplane();
+        wallOrganiser.displayWalls();
+        wallOrganiser.displayProjections();
+        
+        user.displayUser();
+        
+        ofPopMatrix();
+        
+        drawAxis();
+        virtualCamera.end();
+    }
     
-    wallOrganiser.displayGroundplane();
-    wallOrganiser.displayWalls();
-    wallOrganiser.displayProjections();
-    
-    ofPopMatrix();
-    
-    user.displayUser();
-    
-    drawAxis();
-    virtualCamera.end();
-    
+    // EYE-CAMERA LOG
+    if (showLog) {
+        std::stringstream ss;
+        ss << " App FPS: " << ofGetFrameRate() << std::endl;
+        ss << " Cam FPS: " << camera.getGrabber<ofxPS3EyeGrabber>()->getFPS() << std::endl;
+        ss << "Real FPS: " << camera.getGrabber<ofxPS3EyeGrabber>()->getActualFPS() << std::endl;
+        ss << "      id: 0x" << ofToHex(camera.getGrabber<ofxPS3EyeGrabber>()->getDeviceId());
+        ofDrawBitmapStringHighlight(ss.str(), ofPoint(10, 15));
+    }
     
 }
 
@@ -85,8 +110,16 @@ void ofApp::keyPressed(int key){
         case OF_KEY_RIGHT:
             xOrigin -= 5;
             break;
+        case '1':
+            showCamera = !showCamera;
+            break;
+        case '2':
+            showLog = !showLog;
+            break;
+        case '3':
+            show3D = !show3D;
+            break;
     }
-
 }
 
 //--------------------------------------------------------------

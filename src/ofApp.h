@@ -8,10 +8,15 @@
 #include "ofxGui.h"
 #include "ofxOsc.h"
 #include "ofxXmlSettings.h"
+#include "ofxKinect.h"
+#include "ofxOpenCv.h"
+#include "ofxPS3EyeGrabber.h"
 
 // Personal includes
 #include "WallOrganiser.hpp"
+#include "Eyetracker.hpp"
 #include "user.hpp"
+
 
 #define PORT 12001
 #define NUM_MSG_STRINGS 20
@@ -36,18 +41,29 @@ class ofApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
 		
+    
+    // Personal class instances
     WallOrganiser wallOrganiser;
+    Eyetracker eyeTracker;
     User user;
     
-    
+    // XML
     ofxXmlSettings XMLconfig;
     
-    ofEasyCam virtualCamera;
-    float xOrigin,yOrigin,zOrigin;
-    
+    // OSC
     ofxOscReceiver receiver;
-    
     int currentMsgString;
     string msgStrings[NUM_MSG_STRINGS];
     float timers[NUM_MSG_STRINGS];
+    
+    // Eyetracker camera
+    ofVideoGrabber camera;
+    
+    // Virtual camera
+    ofEasyCam virtualCamera;
+    float xOrigin,yOrigin,zOrigin;
+    
+    bool showCamera;
+    bool show3D;
+    bool showLog;
 };

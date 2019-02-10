@@ -13,10 +13,13 @@
 class ProjectionSurface{
 public:
     ProjectionSurface();
-    void setup(vector<ofVec2f> _projectionCoords, int _projectionId);
+    void setup(vector<ofVec2f> _wallCoords,vector<ofVec2f> _projectionCoords,int _projectionId);
+    void calculateWorldCoords();
+    void displayProjection();
     
-    vector<ofVec2f> projectionCoordVector;
     int id;
+    vector<ofVec2f> projectionCoordVector;
+    vector<ofVec2f> wallCoordVector;
 private:
 };
 

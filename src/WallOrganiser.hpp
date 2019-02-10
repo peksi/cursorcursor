@@ -21,7 +21,7 @@ public:
     WallOrganiser();
     void setup(ofxXmlSettings _XMLconfig);
     void addWall(vector<ofVec2f> _wallCoords, int _wallId);
-    void addWalls(vector<vector<ofVec2f>> _wallCoordsVector, vector<int> _wallIdVector);
+    void addProjection(vector<ofVec2f> _projectionCoords, int _projectionId);
     void displayWalls();
     void displayGroundplane();
     void displayProjections();
@@ -29,7 +29,7 @@ public:
     vector<Wall> wallVector;
     vector<ofBoxPrimitive> wallPrimitiveVector;
     vector<ofBoxPrimitive> projectionPrimitiveVector;
-    vector<float> wallAngleVector;
+
 private:
 };
 
