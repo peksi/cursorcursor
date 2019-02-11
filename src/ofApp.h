@@ -66,4 +66,5 @@ class ofApp : public ofBaseApp{
     bool showCamera;
     bool show3D;
     bool showLog;
+    bool showAxis;
 };

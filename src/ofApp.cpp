@@ -13,6 +13,7 @@ void ofApp::setup(){
     showCamera = false;
     show3D = true;
     showLog = false;
+    showAxis = true;
     
     camera.setGrabber(std::make_shared<ofxPS3EyeGrabber>());
     camera.setPixelFormat(OF_PIXELS_NATIVE);
@@ -22,7 +23,7 @@ void ofApp::setup(){
     virtualCamera.setTarget(ofVec3f(0, 0 ,0));
     xOrigin = -340.0;
     yOrigin = -600.0;
-    zOrigin = 300.0;
+    zOrigin = 0.0;
     
     // OSC
     std::cout << "listening for osc messages on port " << PORT << "\n";
@@ -81,7 +82,10 @@ void ofApp::draw(){
         
         ofPopMatrix();
         
-        drawAxis();
+        if (showAxis) {
+           drawAxis();
+        }
+        
         virtualCamera.end();
     }
     
@@ -101,16 +105,22 @@ void ofApp::draw(){
 void ofApp::keyPressed(int key){
     switch (key) {
         case OF_KEY_UP:
-            yOrigin += 5;
+            yOrigin += 10;
             break;
         case OF_KEY_DOWN:
-            yOrigin -= 5;
+            yOrigin -= 10;
             break;
         case OF_KEY_LEFT:
-            xOrigin += 5;
+            xOrigin += 10;
             break;
         case OF_KEY_RIGHT:
-            xOrigin -= 5;
+            xOrigin -= 10;
+            break;
+        case 'x':
+            zOrigin += 50;
+            break;
+        case 'z':
+            zOrigin -= 50;
             break;
         case '1':
             showCamera = !showCamera;
@@ -120,6 +130,9 @@ void ofApp::keyPressed(int key){
             break;
         case '3':
             show3D = !show3D;
+            break;
+        case '4':
+            showAxis = !showAxis;
             break;
     }
 }
