@@ -29,6 +29,8 @@ public:
     vector<Wall> wallVector;
     vector<ofBoxPrimitive> wallPrimitiveVector;
     vector<ofBoxPrimitive> projectionPrimitiveVector;
+    
+    ofPath groundPlane;
 
 private:
 };

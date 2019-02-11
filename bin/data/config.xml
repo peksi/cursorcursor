@@ -36,7 +36,7 @@
                 <beginY>0</beginY>
                 <endX>680</endX>
                 <endY>12.4</endY>
-                <id>1</id><!-- Don't start with 0 because xml -->
+                <id>1</id><!-- Don't start with 0 because xml defaults to 0 if no value is detected -->
             </element>
             <element>
                 <beginX>680</beginX>

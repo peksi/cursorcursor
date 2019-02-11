@@ -11,6 +11,7 @@ WallOrganiser::WallOrganiser() {
     
 }
 void WallOrganiser::setup(ofxXmlSettings _XMLconfig) {
+    // Construct walls
     _XMLconfig.pushTag("document");
     _XMLconfig.pushTag("roomSetup");
     _XMLconfig.pushTag("walls");
@@ -34,6 +35,7 @@ void WallOrganiser::setup(ofxXmlSettings _XMLconfig) {
         _XMLconfig.popTag();
         _XMLconfig.popTag();
         
+        // Construct projection surfaces
         _XMLconfig.pushTag("projectionSurfaces");
         int numProjections = _XMLconfig.getNumTags("element");
         
@@ -59,6 +61,14 @@ void WallOrganiser::setup(ofxXmlSettings _XMLconfig) {
         }
         _XMLconfig.popTag();
         _XMLconfig.pushTag("walls"); // Reset to walls-level for next iteration on forLoop.
+    }
+    
+    // Construct groundplane
+    groundPlane.moveTo(0,0,0);
+    groundPlane.setFilled(true);
+    groundPlane.setFillColor(ofColor(40,100,100));
+    for (int i = 0; i < wallVector.size(); i ++) {
+        groundPlane.lineTo(ofVec2f(wallVector[i].wallCoordVector[1].x,wallVector[i].wallCoordVector[1].y));
     }
     
     // Reset to document level of XML
@@ -92,13 +102,7 @@ void WallOrganiser::displayWalls() {
     }
 }
 void WallOrganiser::displayGroundplane() {
-    ofPushMatrix();
-    ofPushStyle();
-    ofSetColor(70);
-    ofTranslate(680/2, 1400/2);
-    ofDrawPlane(0, 0, 5, 680, 1400);
-    ofPopStyle();
-    ofPopMatrix();
+    groundPlane.draw();
 }
 void WallOrganiser::displayProjections() {
     for (int i = 0; i < wallVector.size(); i++) {
