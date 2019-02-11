@@ -36,7 +36,7 @@ void WallOrganiser::setup(ofxXmlSettings _XMLconfig) {
         wallPathVector.push_back(*new ofPath);
         wallPathVector[i].moveTo(wallCoords[0].x,wallCoords[0].y,0);
         wallPathVector[i].setFilled(true);
-        wallPathVector[i].setFillColor(ofColor(100 + i*20,100,100));
+        wallPathVector[i].setFillColor(ofColor(100 + i*20,100,255 -  i*20));
         wallPathVector[i].lineTo(ofVec3f(wallCoords[0].x,wallCoords[0].y,-wallHeight));
         wallPathVector[i].lineTo(ofVec3f(wallCoords[1].x,wallCoords[1].y,-wallHeight));
         wallPathVector[i].lineTo(ofVec3f(wallCoords[1].x,wallCoords[1].y,0));
