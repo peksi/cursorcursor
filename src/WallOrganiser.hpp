@@ -27,10 +27,11 @@ public:
     void displayProjections();
     
     vector<Wall> wallVector;
-    vector<ofBoxPrimitive> wallPrimitiveVector;
-    vector<ofBoxPrimitive> projectionPrimitiveVector;
-    
+
     ofPath groundPlane;
+    vector<ofPath> wallPathVector;
+    
+    float wallHeight;
 
 private:
 };

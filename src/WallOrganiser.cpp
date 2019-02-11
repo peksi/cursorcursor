@@ -8,7 +8,7 @@
 #include "WallOrganiser.hpp"
 
 WallOrganiser::WallOrganiser() {
-    
+        wallHeight = 100;
 }
 void WallOrganiser::setup(ofxXmlSettings _XMLconfig) {
     // Construct walls
@@ -31,6 +31,16 @@ void WallOrganiser::setup(ofxXmlSettings _XMLconfig) {
         wallCoords.push_back(ofVec2f(endX,endY));
         
         addWall(wallCoords,wallId);
+        
+        // Construct ofPath for visualisation
+        wallPathVector.push_back(*new ofPath);
+        wallPathVector[i].moveTo(wallCoords[0].x,wallCoords[0].y,0);
+        wallPathVector[i].setFilled(true);
+        wallPathVector[i].setFillColor(ofColor(100 + i*20,100,100));
+        wallPathVector[i].lineTo(ofVec3f(wallCoords[0].x,wallCoords[0].y,-wallHeight));
+        wallPathVector[i].lineTo(ofVec3f(wallCoords[1].x,wallCoords[1].y,-wallHeight));
+        wallPathVector[i].lineTo(ofVec3f(wallCoords[1].x,wallCoords[1].y,0));
+        wallPathVector[i].lineTo(ofVec3f(wallCoords[0].x,wallCoords[0].y,0));
         
         _XMLconfig.popTag();
         _XMLconfig.popTag();
@@ -63,7 +73,7 @@ void WallOrganiser::setup(ofxXmlSettings _XMLconfig) {
         _XMLconfig.pushTag("walls"); // Reset to walls-level for next iteration on forLoop.
     }
     
-    // Construct groundplane
+    
     groundPlane.moveTo(0,0,0);
     groundPlane.setFilled(true);
     groundPlane.setFillColor(ofColor(40,100,100));
@@ -90,15 +100,8 @@ void WallOrganiser::addWall(vector<ofVec2f> _wallCoords, int _wallId) {
     cout << _wallCoords[1] << endl;
 }
 void WallOrganiser::displayWalls() {
-    for (int i = 0; i < wallVector.size(); i++) {
-        ofPushStyle();
-        ofSetColor(0, 0, 255);
-        ofSetLineWidth(3);
-        ofDrawLine(wallVector[i].wallCoordVector[0].x,
-                   wallVector[i].wallCoordVector[0].y,
-                   wallVector[i].wallCoordVector[1].x,
-                   wallVector[i].wallCoordVector[1].y);
-        ofPopStyle();
+    for (int i = 0; i < wallPathVector.size(); i++) {
+        wallPathVector[i].draw();
     }
 }
 void WallOrganiser::displayGroundplane() {
