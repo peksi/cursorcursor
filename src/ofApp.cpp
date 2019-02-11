@@ -31,7 +31,9 @@ void ofApp::setup(){
 
 //--------------------------------------------------------------
 void ofApp::update(){
-    camera.update();
+    if (camera.isFrameNew()) {
+        camera.update();
+    }
     
     // Handle OSC data. You should have processing sketch running.
     // check for waiting messages
@@ -175,7 +177,7 @@ void ofApp::drawAxis() {
     // X-Axis
     ofPushStyle();
     ofSetColor(255, 0, 0);
-    ofSetLineWidth(5);
+    ofSetLineWidth(3);
     ofDrawLine(0, 0, 0,
                250, 0, 0);
     ofPopStyle();
@@ -183,7 +185,7 @@ void ofApp::drawAxis() {
     // Y-Axis
     ofPushStyle();
     ofSetColor(0, 255, 0);
-    ofSetLineWidth(5);
+    ofSetLineWidth(3);
     ofDrawLine(0, 0, 0,
                0,250, 0);
     ofPopStyle();
@@ -191,14 +193,14 @@ void ofApp::drawAxis() {
     // Z-Axis
     ofPushStyle();
     ofSetColor(0, 0, 255);
-    ofSetLineWidth(5);
+    ofSetLineWidth(3);
     ofDrawLine(0, 0, 0,
                0, 0, 250);
     ofPopStyle();
     
     // Origin
     ofPushStyle();
-    ofSetColor(255, 0, 255);
+    ofSetColor(255, 255, 255);
     ofDrawSphere(0, 0, 0, 5);
     ofPopStyle();
 }
