@@ -19,5 +19,6 @@ void Wall::attachProjection(vector<ofVec2f> _projectionCoords, int _projectionId
     ProjectionSurface tempProjectionSurface = *new ProjectionSurface;
     tempProjectionSurface.setup(wallCoordVector, _projectionCoords, _projectionId);
     projectionVector.push_back(tempProjectionSurface);
+    projectionAttached = true;
 }
 
