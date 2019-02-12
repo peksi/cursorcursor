@@ -14,6 +14,7 @@ void ProjectionSurface::setup(vector<ofVec2f> _wallCoords, vector<ofVec2f> _proj
     id = _projectionId;
     projectionCoordVector = _projectionCoords;
     wallCoordVector = _wallCoords;
+    rayContact = false;
     
     calculateWorldCoords();
     
@@ -69,6 +70,12 @@ void ProjectionSurface::calculateWorldCoords() {
 }
 void ProjectionSurface::displayProjection() {
     ofSetLineWidth(20);
+    if(rayContact == true){
+        projectionPath.setFillColor(ofColor(255,255,60));
+    } else {
+        projectionPath.setFillColor(ofColor(0,255,60));
+    }
+    
     ofDrawLine(
                surfaceStart, surfaceEnd
     );
@@ -91,6 +98,7 @@ bool ProjectionSurface::raySurfaceIntersection(ofVec3f rayOrigin, ofVec3f ray){
     float d = normal.dot(coord); // normal x dot
     
     if ( normal.dot(ray) == 0) {
+        rayContact = false;
         return false;
     }
     
@@ -99,6 +107,7 @@ bool ProjectionSurface::raySurfaceIntersection(ofVec3f rayOrigin, ofVec3f ray){
     
     // output contact point
     contactPoint = rayOrigin + ray.normalize() * x;
+    rayContact = true;
     return true;
 }
 

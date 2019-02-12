@@ -25,6 +25,7 @@ public:
     ofPath projectionPath;
     bool raySurfaceIntersection(ofVec3f rayOrigin, ofVec3f ray);
     ofVec3f contactPoint;
+    bool rayContact;
     
     vector<ofVec3f> surfaceInWorldCoords;
 private:
