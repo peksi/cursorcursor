@@ -69,6 +69,7 @@ void User::smoothRay() {
     }
 }
 void User::displayRay() {
+    // Scaled ray (realtime data)
     ofPushStyle();
     ofSetColor(200, 100, 100);
     ofSetLineWidth(3);
@@ -78,6 +79,7 @@ void User::displayRay() {
                -100 + scaledRay.z);
     ofPopStyle();
     
+    // Smoothed ray
     ofPushStyle();
     ofSetColor(100, 200, 100);
     ofSetLineWidth(3);
