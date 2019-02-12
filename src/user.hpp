@@ -13,15 +13,26 @@
 class User {
 public:
     User();
-    ofSpherePrimitive userHead;
-    
     
     void setup();
+    void updateUser(vector<string> _incomingOSCmessage);
     void displayUser();
-    void updateUser(ofVec3f position, ofVec3f rotation);
-private:
+    void calculateRay();
+    void smoothRay();
+    void displayRay();
+    
+    ofSpherePrimitive userHead;
+    
     ofVec3f position;
     ofVec3f rotation;
+    
+    ofVec3f normalRay;
+    ofVec3f scaledRay;
+    ofVec3f smoothedRay;
+    ofVec3f normalSmoothedRay;
+    
+private:
+    
 };
 
 #endif /* user_hpp */
