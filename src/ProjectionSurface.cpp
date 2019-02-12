@@ -22,21 +22,50 @@ void ProjectionSurface::setup(vector<ofVec2f> _wallCoords, vector<ofVec2f> _proj
     cout << projectionCoordVector[0];
     cout << " End: ";
     cout << projectionCoordVector[1] << endl;
+    cout << "Start: ";
+    cout << surfaceStart;
+    cout << " End: ";
+    cout << surfaceEnd << endl;
+
 }
+
+ofVec2f lerp(ofVec2f a, ofVec2f b, float presentage){
+    return (a + presentage * (b - a));
+}
+
 void ProjectionSurface::calculateWorldCoords() {
-    ofVec2f constVector = ofVec2f(1,0);
-    ofVec2f wallVector = ofVec2f((wallCoordVector[0].x + wallCoordVector[1].x),
-                                 (wallCoordVector[0].y + wallCoordVector[1].y));
-    wallVector.normalize();
-    float wallAngle = constVector.angle(wallVector);
-    cout << wallVector << endl;
+    float wallLength = hypotf(
+                              wallCoordVector[1].x - wallCoordVector[0].x, wallCoordVector[1].y - wallCoordVector[0].y
+                              );
     
-    float xOffPlacement = cos(wallAngle) * projectionCoordVector[0].x;
-    float yOffPlacement = sin(wallAngle) * projectionCoordVector[0].x;
-    cout << xOffPlacement << endl;
-    cout << yOffPlacement << endl;
+    surfaceStart = lerp(
+                        wallCoordVector[0],
+                        wallCoordVector[1],
+                        projectionCoordVector[0].x / wallLength
+                        );
+    
+    surfaceEnd = lerp(
+                      wallCoordVector[0],
+                      wallCoordVector[1],
+                      projectionCoordVector[1].x / wallLength
+                      );
+    
+    // construct ofPath for 3d rendering
+    projectionPath.moveTo(surfaceStart);
+    projectionPath.setFilled(true);
+    projectionPath.setFillColor(ofColor(100 + 20,100,255 -  20));
+    projectionPath.lineTo(ofVec3f(surfaceStart.x, surfaceStart.y, -200));
+    projectionPath.lineTo(ofVec3f(surfaceEnd.x, surfaceEnd.y, -200));
+    projectionPath.lineTo(ofVec3f(surfaceEnd.x, surfaceEnd.y, 0));
+    projectionPath.lineTo(ofVec3f(surfaceStart.x, surfaceStart.y, 0));
+    
 }
 void ProjectionSurface::displayProjection() {
-
+    ofSetLineWidth(20);
+    ofDrawLine(
+               surfaceStart, surfaceEnd
+    );
+    
+    projectionPath.draw();
 }
 
