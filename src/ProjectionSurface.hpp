@@ -20,6 +20,8 @@ public:
     int id;
     vector<ofVec2f> projectionCoordVector;
     vector<ofVec2f> wallCoordVector;
+    ofVec2f surfaceStart, surfaceEnd;
+    ofPath projectionPath;
 private:
 };
 
