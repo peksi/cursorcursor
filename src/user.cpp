@@ -38,7 +38,6 @@ void User::displayUser() {
     ofDrawLine(position.x, position.y, -100, position.x,position.y,0);
 }
 void User::calculateRay() {
-//    cout << rotation << endl;
     ofVec3f tempRay = ofVec3f(1,0,0);
     tempRay.rotate(0,0,45); // Calibration rotation
     tempRay.rotate(0, 0, rotation.x);
