@@ -14,6 +14,7 @@ void ProjectionSurface::setup(vector<ofVec2f> _wallCoords, vector<ofVec2f> _proj
     id = _projectionId;
     projectionCoordVector = _projectionCoords;
     wallCoordVector = _wallCoords;
+    rayContact = false;
     
     calculateWorldCoords();
     
@@ -64,7 +65,7 @@ void ProjectionSurface::calculateWorldCoords() {
     // construct ofPath for 3d rendering
     projectionPath.moveTo(surfaceStart);
     projectionPath.setFilled(true);
-    projectionPath.setFillColor(ofColor(100 + 20,100,255 -  20));
+    projectionPath.setFillColor(ofColor(0,255,60));
     
     for (int i = 0; i < surfaceInWorldCoords.size() ; i++) {
         projectionPath.lineTo(surfaceInWorldCoords[i]);
@@ -73,6 +74,12 @@ void ProjectionSurface::calculateWorldCoords() {
 }
 void ProjectionSurface::displayProjection() {
     ofSetLineWidth(20);
+    if(rayContact == true){
+        projectionPath.setFillColor(ofColor(255,255,60));
+    } else {
+        projectionPath.setFillColor(ofColor(0,255,60));
+    }
+    
     ofDrawLine(
                surfaceStart, surfaceEnd
     );
@@ -80,7 +87,7 @@ void ProjectionSurface::displayProjection() {
     projectionPath.draw();
 }
 
-ofVec2f ProjectionSurface::raySurfaceIntersection(ofVec3f rayOrigin, ofVec3f ray){
+bool ProjectionSurface::raySurfaceIntersection(ofVec3f rayOrigin, ofVec3f ray){
     
     ofVec3f point0 = surfaceInWorldCoords[0];
     ofVec3f point1 = surfaceInWorldCoords[1];
@@ -95,15 +102,17 @@ ofVec2f ProjectionSurface::raySurfaceIntersection(ofVec3f rayOrigin, ofVec3f ray
     float d = normal.dot(coord); // normal x dot
     
     if ( normal.dot(ray) == 0) {
-        cout << "No intersection, the line is parallel to the plane" << endl;
-        return ofVec3f(0,0,0);
+        rayContact = false;
+        return false;
     }
     
     // Compute the X value for the directed line ray intersecting the plane
     float x = (d - normal.dot(rayOrigin) / normal.dot(ray));
     
     // output contact point
-    return rayOrigin + ray.normalize() * x;
+    contactPoint = rayOrigin + ray.normalize() * x;
+    rayContact = true;
+    return true;
 }
 void ProjectionSurface::displayProjectionFbo() {
     if (projectionFbo.isAllocated()) {

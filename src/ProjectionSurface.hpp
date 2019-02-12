@@ -25,7 +25,9 @@ public:
     vector<ofVec2f> wallCoordVector;
     ofVec2f surfaceStart, surfaceEnd;
     ofPath projectionPath;
-    ofVec2f raySurfaceIntersection(ofVec3f rayOrigin, ofVec3f ray);
+    bool raySurfaceIntersection(ofVec3f rayOrigin, ofVec3f ray);
+    ofVec3f contactPoint;
+    bool rayContact;
     
     vector<ofVec3f> surfaceInWorldCoords;
 private:
