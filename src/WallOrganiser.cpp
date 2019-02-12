@@ -115,9 +115,13 @@ void WallOrganiser::displayProjections() {
         if (wallVector[i].projectionAttached) {
             for (int j = 0; j < wallVector[i].projectionVector.size(); j++) {
                 wallVector[i].projectionVector[j].displayProjection();
-                wallVector[i].projectionVector[j].raySurfaceIntersection(userRayOrigin, userRay);
+                if( wallVector[i].projectionVector[j].raySurfaceIntersection(userRayOrigin, userRay) ){
+                    // we're hitting the ray! let's count the point
+                    cout << "succesfull hit" << endl;
+                    wallVector[i].projectionVector[j].raySurfaceIntersectionCoord(userRayOrigin, userRay);
+                }
                 
-                cout << wallVector[i].projectionVector[j].raySurfaceIntersection(userRayOrigin, userRay) << endl;
+                
             }
         }
     }
