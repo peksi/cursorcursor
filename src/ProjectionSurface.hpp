@@ -20,6 +20,7 @@ public:
     
     int id;
     ofFbo projectionFbo;
+    ofParameter<bool> showFbo;
     
     vector<ofVec2f> projectionCoordVector;
     vector<ofVec2f> wallCoordVector;

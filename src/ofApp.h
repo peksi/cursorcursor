@@ -24,6 +24,7 @@ class ofApp : public ofBaseApp{
 
 	public:
 		void setup();
+        void setupGui();
 		void update();
 		void draw();
         void exit();
@@ -40,7 +41,13 @@ class ofApp : public ofBaseApp{
 		void windowResized(int w, int h);
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
-		
+    
+    // Gui
+    ofxPanel viewGui;
+    ofxPanel fboGui;
+    ofParameterGroup viewParameterGroup;
+    ofParameterGroup fboParameterGroup;
+    ofParameter<bool> showCamera, show3D, showLog, showAxis;
     
     // Personal class instances
     WallOrganiser wallOrganiser;
@@ -62,9 +69,4 @@ class ofApp : public ofBaseApp{
     // Virtual camera
     ofEasyCam virtualCamera;
     float xOrigin,yOrigin,zOrigin;
-    
-    bool showCamera;
-    bool show3D;
-    bool showLog;
-    bool showAxis;
 };

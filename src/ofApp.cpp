@@ -9,19 +9,18 @@ void ofApp::setup(){
         wallOrganiser.setup(XMLconfig,&user.position,&user.normalRay);
     }
     
-    ofEnableDepthTest();
-    showCamera = false;
-    show3D = true;
-    showLog = false;
-    showAxis = true;
+    // GUI
+    setupGui();
     
+    // Eyetracker camera
     camera.setGrabber(std::make_shared<ofxPS3EyeGrabber>());
     camera.setPixelFormat(OF_PIXELS_NATIVE);
     camera.setDesiredFrameRate(75);
     camera.setup(640, 480, true);
     
-    
+    // Virtual camera
     virtualCamera.setTarget(ofVec3f(0, 0 ,0));
+    virtualCamera.setDistance(1500);
     xOrigin = -340.0;
     yOrigin = -600.0;
     zOrigin = 0.0;
@@ -68,6 +67,7 @@ void ofApp::draw(){
     
     // 3D VISUALISATION MATRIX
     if (show3D) {
+        ofEnableDepthTest();
         virtualCamera.begin();
         
         ofPushMatrix();
@@ -87,6 +87,7 @@ void ofApp::draw(){
         }
         
         virtualCamera.end();
+        ofDisableDepthTest();
     }
     
     // EYE-CAMERA LOG
@@ -96,9 +97,14 @@ void ofApp::draw(){
         ss << " Cam FPS: " << camera.getGrabber<ofxPS3EyeGrabber>()->getFPS() << std::endl;
         ss << "Real FPS: " << camera.getGrabber<ofxPS3EyeGrabber>()->getActualFPS() << std::endl;
         ss << "      id: 0x" << ofToHex(camera.getGrabber<ofxPS3EyeGrabber>()->getDeviceId());
-        ofDrawBitmapStringHighlight(ss.str(), ofPoint(10, 15));
+        ofPushStyle();
+        ofSetColor(255);
+        ofDrawBitmapString(ss.str(), ofPoint(10, ofGetHeight()-50));
+        ofPopStyle();
     }
     
+    viewGui.draw();
+    fboGui.draw();
 }
 
 //--------------------------------------------------------------
@@ -220,4 +226,25 @@ void ofApp::drawAxis() {
     ofSetColor(255, 255, 255);
     ofDrawSphere(0, 0, 0, 5);
     ofPopStyle();
+}
+void ofApp::setupGui() {
+    // GUI
+    viewGui.setup("View GUI");
+    viewGui.setPosition(10, 10);
+    viewParameterGroup.setName("View controls");
+    viewParameterGroup.add(showCamera.set("Show camera feed",false));
+    viewParameterGroup.add(showLog.set("Show camera log",true));
+    viewParameterGroup.add(show3D.set("Show 3D visualisation",true));
+    viewParameterGroup.add(showAxis.set("Show 3D axis",true));
+    viewGui.add(viewParameterGroup);
+    
+    fboGui.setup("FBO GUI");
+    fboGui.setPosition(ofGetWidth()-fboGui.getWidth()-10, 10);
+    fboParameterGroup.setName("FBO controls");
+    for (int i = 0; i < wallOrganiser.wallVector.size(); i++) {
+        for (int j = 0; j < wallOrganiser.wallVector[i].projectionVector.size(); j++) {
+            fboParameterGroup.add(wallOrganiser.wallVector[i].projectionVector[j].showFbo.set("FBO ID: " + ofToString(wallOrganiser.wallVector[i].projectionVector[j].id), false));
+        }
+    }
+    fboGui.add(fboParameterGroup);
 }
