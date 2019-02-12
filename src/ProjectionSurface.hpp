@@ -18,6 +18,7 @@ public:
     void displayProjection();
     
     int id;
+    ofFbo projectionFbo;
     vector<ofVec2f> projectionCoordVector;
     vector<ofVec2f> wallCoordVector;
     ofVec2f surfaceStart, surfaceEnd;

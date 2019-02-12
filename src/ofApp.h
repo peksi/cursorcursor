@@ -26,6 +26,7 @@ class ofApp : public ofBaseApp{
 		void setup();
 		void update();
 		void draw();
+        void exit();
         void drawAxis();
 
 		void keyPressed(int key);

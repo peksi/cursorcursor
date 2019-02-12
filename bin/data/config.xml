@@ -35,33 +35,33 @@
                 <beginX>0</beginX>
                 <beginY>0</beginY>
                 <endX>680</endX>
-                <endY>12.4</endY>
+                <endY>-251.2</endY>
                 <id>1</id><!-- Don't start with 0 because xml defaults to 0 if no value is detected -->
             </element>
             <element>
                 <beginX>680</beginX>
-                <beginY>12.4</beginY>
-                <endX>708.7</endX>
-                <endY>1162.1</endY>
+                <beginY>-251.2</beginY>
+                <endX>813.3</endX>
+                <endY>891.1</endY>
                 <id>2</id>
             </element>
             <element>
-                <beginX>708.7</beginX>
-                <beginY>1162.1</beginY>
-                <endX>486</endX>
-                <endY>1457.6</endY>
+                <beginX>813.3</beginX>
+                <beginY>891.1</beginY>
+                <endX>734.3</endX>
+                <endY>1252.5</endY>
                 <id>3</id>
             </element>
             <element>
-                <beginX>486</beginX>
-                <beginY>1457.6</beginY>
-                <endX>-64.3</endX>
-                <endY>1058.2</endY>
+                <beginX>734.3</beginX>
+                <beginY>1252.5</beginY>
+                <endX>67.5</endX>
+                <endY>1119.3</endY>
                 <id>4</id>
             </element>
             <element>
-                <beginX>-64.3</beginX>
-                <beginY>1058.2</beginY>
+                <beginX>67.5</beginX>
+                <beginY>1119.3</beginY>
                 <endX>141.3</endX>
                 <endY>787.4</endY>
                 <id>5</id>

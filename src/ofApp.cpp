@@ -20,6 +20,7 @@ void ofApp::setup(){
     camera.setDesiredFrameRate(75);
     camera.setup(640, 480, true);
     
+    
     virtualCamera.setTarget(ofVec3f(0, 0 ,0));
     xOrigin = -340.0;
     yOrigin = -600.0;
@@ -40,19 +41,18 @@ void ofApp::update(){
     // check for waiting messages
     while(receiver.hasWaitingMessages()){
         // get the next message
-        ofxOscMessage m;
-        receiver.getNextMessage(m);
-        if(m.getAddress() == "/pozyx"){ // check pozyx messages
-            if( m.getArgType(0) == OFXOSC_TYPE_STRING){ // check that we're getting strings
-                cout << m.getArgAsString(0) << "\n";
+        ofxOscMessage incomingMessage;
+        receiver.getNextMessage(incomingMessage);
+        if(incomingMessage.getAddress() == "/pozyx"){ // check pozyx messages
+            if( incomingMessage.getArgType(0) == OFXOSC_TYPE_STRING){ // check that we're getting strings
+                vector<string> splitMessage = ofSplitString(incomingMessage.getArgAsString(0), ",",true);
+                user.updateUser(splitMessage);
             }
             else{
-                cout << "unhandled argument type " + m.getArgTypeName(0) << "\n";
+                cout << "unhandled argument type " + incomingMessage.getArgTypeName(0) << "\n";
             }
         }
     }
-    
-    user.updateUser(ofVec3f(30, 30, 30), ofVec3f(0, 0, 0));
 }
 
 //--------------------------------------------------------------
@@ -101,6 +101,10 @@ void ofApp::draw(){
     
 }
 
+//--------------------------------------------------------------
+void ofApp::exit() {
+    camera.close();
+}
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
     switch (key) {
