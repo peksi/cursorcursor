@@ -20,8 +20,8 @@ public:
     void displayUser();
     void updateUser(ofVec3f position, ofVec3f rotation);
 private:
-    ofVec3f _position;
-    ofVec3f _rotation;
+    ofVec3f position;
+    ofVec3f rotation;
 };
 
 #endif /* user_hpp */

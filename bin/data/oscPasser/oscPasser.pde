@@ -2,7 +2,7 @@
 // Original code by John Lee 30 Jan 2019
 
 String IP = "10.100.4.221";  // change this
-String tagId = "0x6735";  // change this
+String tagId = "0x6759";  // change this
 
 String localhost = "127.0.0.1"; 
 NetAddress myRemoteLocation;

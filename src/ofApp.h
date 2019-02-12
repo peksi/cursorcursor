@@ -17,7 +17,6 @@
 #include "Eyetracker.hpp"
 #include "user.hpp"
 
-
 #define PORT 12001
 #define NUM_MSG_STRINGS 20
 

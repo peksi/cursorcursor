@@ -13,15 +13,15 @@ void User::setup() {
     
 }
 
-void User::updateUser(ofVec3f position, ofVec3f rotation) {
-    _position = position;
-    _rotation = rotation;
+void User::updateUser(ofVec3f _position, ofVec3f _rotation) {
+    position = _position;
+    rotation = _rotation;
 }
 
 void User::displayUser() {
     
     userHead.set(30, 10);
-    userHead.setPosition(_position.x, _position.y, _position.z);
+    userHead.setPosition(position.x, position.y, position.z);
     userHead.draw();
     
 }
