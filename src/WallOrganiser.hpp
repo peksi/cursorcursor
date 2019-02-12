@@ -19,7 +19,7 @@
 class WallOrganiser {
 public:
     WallOrganiser();
-    void setup(ofxXmlSettings _XMLconfig);
+    void setup(ofxXmlSettings _XMLconfig, ofVec3f* _position, ofVec3f* _ray);
     void addWall(vector<ofVec2f> _wallCoords, int _wallId);
     void addProjection(vector<ofVec2f> _projectionCoords, int _projectionId);
     void displayWalls();
@@ -32,6 +32,9 @@ public:
     vector<ofPath> wallPathVector;
     
     float wallHeight;
+    
+    ofVec3f* userRayOrigin;
+    ofVec3f* userRay;
 
 private:
 };

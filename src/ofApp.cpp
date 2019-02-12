@@ -6,7 +6,7 @@ void ofApp::setup(){
     string file = "config.xml";
     bool parsingSuccessful = XMLconfig.loadFile(file);
     if (parsingSuccessful) {
-        wallOrganiser.setup(XMLconfig);
+        wallOrganiser.setup(XMLconfig,&user.position,&user.normalRay);
     }
     
     ofEnableDepthTest();

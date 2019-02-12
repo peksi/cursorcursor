@@ -10,7 +10,10 @@
 WallOrganiser::WallOrganiser() {
         wallHeight = 100;
 }
-void WallOrganiser::setup(ofxXmlSettings _XMLconfig) {
+void WallOrganiser::setup(ofxXmlSettings _XMLconfig, ofVec3f* _position, ofVec3f* _ray ) {
+    userRayOrigin = _position;
+    userRay = _ray;
+    
     // Construct walls
     _XMLconfig.pushTag("document");
     _XMLconfig.pushTag("roomSetup");
@@ -107,11 +110,14 @@ void WallOrganiser::displayWalls() {
 void WallOrganiser::displayGroundplane() {
     groundPlane.draw();
 }
-void WallOrganiser::displayProjections() {
+void WallOrganiser::displayProjections() {    
     for (int i = 0; i < wallVector.size(); i++) {
         if (wallVector[i].projectionAttached) {
             for (int j = 0; j < wallVector[i].projectionVector.size(); j++) {
                 wallVector[i].projectionVector[j].displayProjection();
+                wallVector[i].projectionVector[j].raySurfaceIntersection(userRayOrigin, userRay);
+                
+                cout << wallVector[i].projectionVector[j].raySurfaceIntersection(userRayOrigin, userRay) << endl;
             }
         }
     }

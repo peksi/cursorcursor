@@ -83,7 +83,7 @@ void ProjectionSurface::displayProjection() {
     projectionPath.draw();
 }
 
-bool ProjectionSurface::raySurfaceIntersection(ofVec3f rayOrigin, ofVec3f ray){
+bool ProjectionSurface::raySurfaceIntersection(ofVec3f* rayOrigin, ofVec3f* ray){
     
     ofVec3f point0 = surfaceInWorldCoords[0];
     ofVec3f point1 = surfaceInWorldCoords[1];
@@ -97,16 +97,16 @@ bool ProjectionSurface::raySurfaceIntersection(ofVec3f rayOrigin, ofVec3f ray){
     
     float d = normal.dot(coord); // normal x dot
     
-    if ( normal.dot(ray) == 0) {
+    if ( normal.dot(*ray) == 0) {
         rayContact = false;
         return false;
     }
     
     // Compute the X value for the directed line ray intersecting the plane
-    float x = (d - normal.dot(rayOrigin) / normal.dot(ray));
+    float x = (d - normal.dot(*rayOrigin) / normal.dot(*ray));
     
     // output contact point
-    contactPoint = rayOrigin + ray.normalize() * x;
+    contactPoint = *rayOrigin + ray->normalize() * x;
     rayContact = true;
     return true;
 }
