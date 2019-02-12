@@ -50,15 +50,22 @@ void ProjectionSurface::calculateWorldCoords() {
                       projectionCoordVector[1].x / wallLength
                       );
     
+    surfaceInWorldCoords = {
+        ofVec3f(surfaceStart.x, surfaceStart.y, -200),
+        ofVec3f(surfaceEnd.x, surfaceEnd.y, -200),
+        ofVec3f(surfaceEnd.x, surfaceEnd.y, 0),
+        ofVec3f(surfaceStart.x, surfaceStart.y, 0)
+    };
+    
     // construct ofPath for 3d rendering
     projectionPath.moveTo(surfaceStart);
     projectionPath.setFilled(true);
     projectionPath.setFillColor(ofColor(100 + 20,100,255 -  20));
-    projectionPath.lineTo(ofVec3f(surfaceStart.x, surfaceStart.y, -200));
-    projectionPath.lineTo(ofVec3f(surfaceEnd.x, surfaceEnd.y, -200));
-    projectionPath.lineTo(ofVec3f(surfaceEnd.x, surfaceEnd.y, 0));
-    projectionPath.lineTo(ofVec3f(surfaceStart.x, surfaceStart.y, 0));
     
+    for (int i = 0; i < surfaceInWorldCoords.size() ; i++) {
+        projectionPath.lineTo(surfaceInWorldCoords[i]);
+    }
+
 }
 void ProjectionSurface::displayProjection() {
     ofSetLineWidth(20);
@@ -67,5 +74,31 @@ void ProjectionSurface::displayProjection() {
     );
     
     projectionPath.draw();
+}
+
+ofVec2f ProjectionSurface::raySurfaceIntersection(ofVec3f rayOrigin, ofVec3f ray){
+    
+    ofVec3f point0 = surfaceInWorldCoords[0];
+    ofVec3f point1 = surfaceInWorldCoords[1];
+    ofVec3f point2 = surfaceInWorldCoords[2];
+
+    ofVec3f vec1 = point2 - point0;
+    ofVec3f vec2 = point1 - point0;
+    
+    ofVec3f normal = vec1.cross(vec2);
+    ofVec3f coord = point0;
+    
+    float d = normal.dot(coord); // normal x dot
+    
+    if ( normal.dot(ray) == 0) {
+        cout << "No intersection, the line is parallel to the plane" << endl;
+        return ofVec3f(0,0,0);
+    }
+    
+    // Compute the X value for the directed line ray intersecting the plane
+    float x = (d - normal.dot(rayOrigin) / normal.dot(ray));
+    
+    // output contact point
+    return rayOrigin + ray.normalize() * x;
 }
 
