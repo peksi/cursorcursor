@@ -16,9 +16,11 @@ public:
     void setup(vector<ofVec2f> _wallCoords,vector<ofVec2f> _projectionCoords,int _projectionId);
     void calculateWorldCoords();
     void displayProjection();
+    void displayProjectionFbo();
     
     int id;
     ofFbo projectionFbo;
+    
     vector<ofVec2f> projectionCoordVector;
     vector<ofVec2f> wallCoordVector;
     ofVec2f surfaceStart, surfaceEnd;

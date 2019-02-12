@@ -17,6 +17,10 @@ void ProjectionSurface::setup(vector<ofVec2f> _wallCoords, vector<ofVec2f> _proj
     
     calculateWorldCoords();
     
+    float projectionWidth = abs(_wallCoords[1].x - _wallCoords[0].x);
+    float projectionHeight = abs(_wallCoords[1].y - _wallCoords[0].y);
+    projectionFbo.allocate(projectionWidth, projectionHeight);
+    
     cout << "Projection added to wall with coordinates: ";
     cout << "Start: ";
     cout << projectionCoordVector[0];
@@ -100,5 +104,10 @@ ofVec2f ProjectionSurface::raySurfaceIntersection(ofVec3f rayOrigin, ofVec3f ray
     
     // output contact point
     return rayOrigin + ray.normalize() * x;
+}
+void ProjectionSurface::displayProjectionFbo() {
+    if (projectionFbo.isAllocated()) {
+        projectionFbo.draw(0,0);
+    }
 }
 
