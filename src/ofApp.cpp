@@ -248,7 +248,7 @@ void ofApp::setupGui() {
     viewGui.setPosition(10, 10);
     viewParameterGroup.setName("View controls");
     viewParameterGroup.add(showCamera.set("Show camera feed",false));
-    viewParameterGroup.add(showLog.set("Show camera log",true));
+    viewParameterGroup.add(showLog.set("Show camera log",false));
     viewParameterGroup.add(show3D.set("Show 3D visualisation",true));
     viewParameterGroup.add(showAxis.set("Show 3D axis",true));
     viewGui.add(viewParameterGroup);
