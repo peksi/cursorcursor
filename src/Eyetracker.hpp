@@ -21,10 +21,12 @@ public:
     Eyetracker();
     void setup();
     void updateImage(ofImage _cameraImage);
-    void detectEyes(ofxCvColorImage _frame, cv::CascadeClassifier _faceCascade, cv::CascadeClassifier _eyeCascade);
+    void detectEyes();
     
     ofxCvColorImage cameraImage;
     ofxCvGrayscaleImage grayscaleFrame;
+    ofxCvHaarFinder eyeFinder;
+    
     cv::CascadeClassifier faceCascade;
     cv::CascadeClassifier eyeCascade;
 private:

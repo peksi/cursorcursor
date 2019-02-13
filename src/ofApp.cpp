@@ -115,6 +115,7 @@ void ofApp::draw(){
         ofDisableDepthTest();
     }
     
+    
     // EYE-CAMERA LOG
     if (showLog) {
         /*
