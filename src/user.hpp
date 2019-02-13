@@ -23,6 +23,8 @@ public:
     
     ofSpherePrimitive userHead;
     
+    ofParameter<float> rotationOffset;
+    
     ofVec3f position;
     ofVec3f rotation;
     

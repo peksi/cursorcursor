@@ -132,6 +132,7 @@ void ofApp::draw(){
     
     viewGui.draw();
     fboGui.draw();
+    userGui.draw();
 }
 
 //--------------------------------------------------------------
@@ -275,4 +276,11 @@ void ofApp::setupGui() {
         }
     }
     fboGui.add(fboParameterGroup);
+    
+    userGui.setup("User GUI");
+    userGui.setPosition(10,viewGui.getHeight()+20);
+    userParameterGroup.setName("User controls");
+    userParameterGroup.add(user.rotationOffset.set("Rotation offset",45,0,360));
+    userGui.add(userParameterGroup);
+    
 }

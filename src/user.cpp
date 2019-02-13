@@ -8,6 +8,7 @@
 #include "user.hpp"
 
 User::User() {
+    rotationOffset = 45;
 }
 void User::setup() {
     
@@ -39,7 +40,7 @@ void User::displayUser() {
 }
 void User::calculateRay() {
     ofVec3f tempRay = ofVec3f(1,0,0);
-    tempRay.rotate(0,0,45); // Calibration rotation
+    tempRay.rotate(0,0,rotationOffset); // Calibration rotation
     tempRay.rotate(0, 0, rotation.x);
     
     // Calculate axis around which to rotate Z (tilt), perpendicular to x/y vector.

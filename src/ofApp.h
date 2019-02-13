@@ -46,8 +46,10 @@ class ofApp : public ofBaseApp{
     // Gui
     ofxPanel viewGui;
     ofxPanel fboGui;
+    ofxPanel userGui;
     ofParameterGroup viewParameterGroup;
     ofParameterGroup fboParameterGroup;
+    ofParameterGroup userParameterGroup;
     ofParameter<bool> showCamera, show3D, showLog, showAxis, flipImage;
     
     // Personal class instances
