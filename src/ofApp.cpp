@@ -13,10 +13,19 @@ void ofApp::setup(){
     setupGui();
     
     // Eyetracker camera
+    string deviceName = "B525 HD Webcam";
+    vector<ofVideoDevice> devices = camera.listDevices();
+    camera.setDeviceID(devices[1].id);
+    camera.initGrabber(1280,720);
+    camResWidth = 1280;
+    camResHeight = 720;
+    
+    /*
     camera.setGrabber(std::make_shared<ofxPS3EyeGrabber>());
     camera.setPixelFormat(OF_PIXELS_NATIVE);
     camera.setDesiredFrameRate(75);
     camera.setup(640, 480, true);
+    */
     
     // Virtual camera
     virtualCamera.setTarget(ofVec3f(0, 0 ,0));
@@ -32,9 +41,9 @@ void ofApp::setup(){
 
 //--------------------------------------------------------------
 void ofApp::update(){
-    if (camera.isFrameNew()) {
-        camera.update();
-    }
+    camera.update();
+    
+    
     
     // Handle OSC data. You should have processing sketch running.
     // check for waiting messages
@@ -61,7 +70,11 @@ void ofApp::draw(){
     // EYE-CAMERA IMAGE
     if (showCamera) {
         ofPushMatrix();
-        camera.draw(0, 0);
+        ofImage flippedImage;
+        ofPixels cameraImage = camera.getPixels();
+        cameraImage.mirror(true, true);
+        flippedImage.setFromPixels(cameraImage);
+        flippedImage.draw(0, 0);
         ofPopMatrix();
     }
     
@@ -92,6 +105,7 @@ void ofApp::draw(){
     
     // EYE-CAMERA LOG
     if (showLog) {
+        /*
         std::stringstream ss;
         ss << " App FPS: " << ofGetFrameRate() << std::endl;
         ss << " Cam FPS: " << camera.getGrabber<ofxPS3EyeGrabber>()->getFPS() << std::endl;
@@ -101,6 +115,7 @@ void ofApp::draw(){
         ofSetColor(255);
         ofDrawBitmapString(ss.str(), ofPoint(10, ofGetHeight()-50));
         ofPopStyle();
+         */
     }
     
     viewGui.draw();
