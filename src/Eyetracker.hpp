@@ -25,7 +25,7 @@ public:
     
     ofxCvColorImage cameraImage;
     ofxCvGrayscaleImage grayscaleFrame;
-    ofxCvHaarFinder eyeFinder;
+    ofxCv::ObjectFinder eyeFinder;
     
     cv::CascadeClassifier faceCascade;
     cv::CascadeClassifier eyeCascade;

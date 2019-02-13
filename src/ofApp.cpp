@@ -55,6 +55,8 @@ void ofApp::update(){
         eyeTracker.updateImage(normalCameraImage);
     }
     
+    
+    
     // Handle OSC data. You should have processing sketch running.
     // check for waiting messages
     while(receiver.hasWaitingMessages()){
@@ -130,6 +132,8 @@ void ofApp::draw(){
         ofPopStyle();
         */
     }
+    
+    eyeTracker.detectEyes();
     
     viewGui.draw();
     fboGui.draw();

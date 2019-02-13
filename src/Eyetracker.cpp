@@ -15,6 +15,8 @@ Eyetracker::Eyetracker() {
     grayscaleFrame.allocate(1280,720);
     
     eyeFinder.setup("haarcascade_eye.xml");
+    eyeFinder.setPreset(ObjectFinder::Fast);
+    eyeFinder.getTracker().setSmoothingRate(0.3);
     
 }
 void Eyetracker::setup() {
@@ -22,18 +24,13 @@ void Eyetracker::setup() {
 }
 void Eyetracker::updateImage(ofImage _cameraImage) {
     cameraImage = _cameraImage;
-    
-    detectEyes();
 }
 void Eyetracker::detectEyes() {
-
-    grayscaleFrame.setFromColorImage(cameraImage);
+    eyeFinder.update(cameraImage);
     
-    std::vector<cv::Rect> eyes;
-    
-    eyeFinder.findHaarObjects(grayscaleFrame); // an ofxCvGrayscaleImage
-    for(int i = 0; i < eyeFinder.blobs.size(); i++) {
-        ofxCvBlob cur = eyeFinder.blobs[i];
-        cout << cur.boundingRect << endl;
+    for (int i = 0; i < eyeFinder.size(); i++) {
+        ofRectangle object = eyeFinder.getObjectSmoothed(i);
+        ofDrawRectangle(object.x, object.y, object.width, object.height);
     }
+    
 }
