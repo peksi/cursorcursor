@@ -22,6 +22,7 @@ public:
     void setup();
     void updateImage(ofImage _cameraImage);
     void detectEyes();
+    void drawDetectedEyes();
     
     ofxCvColorImage cameraImage;
     ofxCvGrayscaleImage grayscaleFrame;
@@ -29,6 +30,7 @@ public:
     
     cv::CascadeClassifier faceCascade;
     cv::CascadeClassifier eyeCascade;
+
 private:
 };
 

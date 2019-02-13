@@ -92,6 +92,8 @@ void ofApp::draw(){
         ofPopMatrix();
     }
     
+    eyeTracker.detectEyes();
+    
     // 3D VISUALISATION MATRIX
     if (show3D) {
         ofEnableDepthTest();
@@ -133,7 +135,7 @@ void ofApp::draw(){
         */
     }
     
-    eyeTracker.detectEyes();
+    eyeTracker.drawDetectedEyes();
     
     viewGui.draw();
     fboGui.draw();

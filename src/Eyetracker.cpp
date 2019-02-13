@@ -30,7 +30,23 @@ void Eyetracker::detectEyes() {
     
     for (int i = 0; i < eyeFinder.size(); i++) {
         ofRectangle object = eyeFinder.getObjectSmoothed(i);
-        ofDrawRectangle(object.x, object.y, object.width, object.height);
     }
+}
+void Eyetracker::drawDetectedEyes() {
+    eyeFinder.update(cameraImage);
     
+    for (int i = 0; i < eyeFinder.size(); i++) {
+        ofRectangle object = eyeFinder.getObjectSmoothed(i);
+        
+        ofPath eyeBox;
+        eyeBox.setColor(ofColor(0,255,0));
+        eyeBox.setStrokeWidth(5);
+        eyeBox.setFilled(false);
+        eyeBox.moveTo(object.x,object.y,0);
+        eyeBox.lineTo(object.width,object.y,0);
+        eyeBox.lineTo(object.width,object.height,0);
+        eyeBox.lineTo(object.x,object.height,0);
+        eyeBox.lineTo(object.x,object.y,0);
+        eyeBox.draw();
+    }
 }
