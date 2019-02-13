@@ -19,6 +19,9 @@ class Eyetracker {
 public:
     Eyetracker();
     void setup();
+    void updateImage(ofImage _cameraImage);
+    
+    ofxCvColorImage cameraImage;
 private:
 };
 

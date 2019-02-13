@@ -13,3 +13,6 @@ Eyetracker::Eyetracker() {
 void Eyetracker::setup() {
     
 }
+void Eyetracker::updateImage(ofImage _cameraImage) {
+    cameraImage = _cameraImage;
+}

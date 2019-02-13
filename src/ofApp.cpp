@@ -43,7 +43,11 @@ void ofApp::setup(){
 void ofApp::update(){
     camera.update();
     
-    
+    // Flip camera image for eyetracker.
+    ofPixels cameraImage = camera.getPixels();
+    cameraImage.mirror(true, true);
+    flippedCameraImage.setFromPixels(cameraImage);
+    eyeTracker.updateImage(flippedCameraImage);
     
     // Handle OSC data. You should have processing sketch running.
     // check for waiting messages
@@ -70,11 +74,7 @@ void ofApp::draw(){
     // EYE-CAMERA IMAGE
     if (showCamera) {
         ofPushMatrix();
-        ofImage flippedImage;
-        ofPixels cameraImage = camera.getPixels();
-        cameraImage.mirror(true, true);
-        flippedImage.setFromPixels(cameraImage);
-        flippedImage.draw(0, 0);
+        flippedCameraImage.draw(0, 0);
         ofPopMatrix();
     }
     

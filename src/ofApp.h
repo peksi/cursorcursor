@@ -65,7 +65,7 @@ class ofApp : public ofBaseApp{
     
     // Eyetracker camera
     ofVideoGrabber camera;
-    ofPixels flippedCamera;
+    ofImage flippedCameraImage;
     int camResWidth, camResHeight;
     
     // Virtual camera
