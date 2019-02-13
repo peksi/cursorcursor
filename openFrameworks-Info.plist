@@ -16,9 +16,11 @@
 	<string>APPL</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>CFBundleVersion</key>
+	<string>1.0</string>
 	<key>NSCameraUsageDescription</key>
-	<string>Using webcam for eyetrack.</string>
+	<string>Using camera for eyetracking</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>Using webcam for eyetrack.</string>
+	<string>Using camera for eyetracking</string>
 </dict>
 </plist>

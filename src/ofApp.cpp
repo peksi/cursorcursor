@@ -2,6 +2,9 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
+    ofSetFrameRate(60);
+    ofSetVerticalSync(true);
+    
     // XML
     string file = "config.xml";
     bool parsingSuccessful = XMLconfig.loadFile(file);
@@ -19,13 +22,6 @@ void ofApp::setup(){
     camera.initGrabber(1280,720);
     camResWidth = 1280;
     camResHeight = 720;
-    
-    /*
-    camera.setGrabber(std::make_shared<ofxPS3EyeGrabber>());
-    camera.setPixelFormat(OF_PIXELS_NATIVE);
-    camera.setDesiredFrameRate(75);
-    camera.setup(640, 480, true);
-    */
     
     // Virtual camera
     virtualCamera.setTarget(ofVec3f(0, 0 ,0));
@@ -70,6 +66,7 @@ void ofApp::update(){
 //--------------------------------------------------------------
 void ofApp::draw(){
     ofBackground(40);
+    ofSetWindowTitle(ofToString(ofGetFrameRate()));
     
     // EYE-CAMERA IMAGE
     if (showCamera) {
@@ -115,7 +112,7 @@ void ofApp::draw(){
         ofSetColor(255);
         ofDrawBitmapString(ss.str(), ofPoint(10, ofGetHeight()-50));
         ofPopStyle();
-         */
+        */
     }
     
     viewGui.draw();
@@ -247,7 +244,7 @@ void ofApp::setupGui() {
     viewGui.setup("View GUI");
     viewGui.setPosition(10, 10);
     viewParameterGroup.setName("View controls");
-    viewParameterGroup.add(showCamera.set("Show camera feed",false));
+    viewParameterGroup.add(showCamera.set("Show camera feed",true));
     viewParameterGroup.add(showLog.set("Show camera log",false));
     viewParameterGroup.add(show3D.set("Show 3D visualisation",true));
     viewParameterGroup.add(showAxis.set("Show 3D axis",true));

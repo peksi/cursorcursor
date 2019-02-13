@@ -13,6 +13,7 @@
 // ofxAddon includes
 #include "ofxKinect.h"
 #include "ofxOpenCv.h"
+#include "ofxCv.h"
 #include "ofxPS3EyeGrabber.h"
 
 class Eyetracker {
