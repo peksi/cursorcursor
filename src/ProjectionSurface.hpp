@@ -17,6 +17,7 @@ public:
     void calculateWorldCoords();
     void displayProjection();
     void displayProjectionFbo();
+    float wallLength;
     
     int id;
     ofFbo projectionFbo;
@@ -29,6 +30,7 @@ public:
     bool raySurfaceIntersection(ofVec3f* rayOrigin, ofVec3f* ray);
     ofVec3f raySurfaceIntersectionCoord(ofVec3f* rayOrigin, ofVec3f* ray);
     ofVec3f contactPoint;
+    vector<float> contactPointToProjectionSurfaceCoord();
     bool rayContact;
     
     vector<ofVec3f> surfaceInWorldCoords;

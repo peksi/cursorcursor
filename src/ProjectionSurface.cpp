@@ -11,9 +11,15 @@ ProjectionSurface::ProjectionSurface() {
     
 }
 void ProjectionSurface::setup(vector<ofVec2f> _wallCoords, vector<ofVec2f> _projectionCoords, int _projectionId) {
+    
     id = _projectionId;
     projectionCoordVector = _projectionCoords;
     wallCoordVector = _wallCoords;
+    wallLength = hypotf(
+                              wallCoordVector[1].x - wallCoordVector[0].x, wallCoordVector[1].y - wallCoordVector[0].y
+                              );
+    
+    // raycontact determines the color of the wall
     rayContact = false;
     
     calculateWorldCoords();
@@ -31,18 +37,17 @@ void ProjectionSurface::setup(vector<ofVec2f> _wallCoords, vector<ofVec2f> _proj
     cout << surfaceStart;
     cout << " End: ";
     cout << surfaceEnd << endl;
-
 }
 
 ofVec2f lerp(ofVec2f a, ofVec2f b, float presentage){
     return (a + presentage * (b - a));
 }
 
+float getLerpRatio(float start, float end, float lerpPoint){
+    return (lerpPoint - start)/(end - start);
+}
+
 void ProjectionSurface::calculateWorldCoords() {
-    float wallLength = hypotf(
-                              wallCoordVector[1].x - wallCoordVector[0].x, wallCoordVector[1].y - wallCoordVector[0].y
-                              );
-    
     surfaceStart = lerp(
                         wallCoordVector[0],
                         wallCoordVector[1],
@@ -155,7 +160,33 @@ ofVec3f ProjectionSurface::raySurfaceIntersectionCoord(ofVec3f* rayOrigin, ofVec
     // output contact point
     contactPoint = *rayOrigin + ray->normalize() * x;
     cout << contactPoint << endl;
+    
+    contactPointToProjectionSurfaceCoord();
+    
     return contactPoint;
+}
+
+vector<float> ProjectionSurface::contactPointToProjectionSurfaceCoord(){
+    ofVec3f lb = ofVec3f(surfaceStart.x, surfaceStart.y, 0);
+    ofVec3f rt = ofVec3f(surfaceEnd.x, surfaceEnd.y, 200);
+    
+    cout << lb << endl;
+    cout << rt << endl;
+    cout << contactPoint << endl;
+    
+    float ratioX = getLerpRatio(lb.x, rt.x, contactPoint.x);
+//    float ratioY = getLerpRatio(lb.y, rt.y, contactPoint.y);
+    float ratioZ = getLerpRatio(lb.z, rt.z, contactPoint.z);
+    
+    cout << "ratioX " << ratioX << endl;
+//    cout << "ratioY " << ratioY << endl;
+    cout << "ratioZ " << ratioZ << endl;
+    
+    vector<float> retVect;
+    retVect.push_back(ratioX);
+    retVect.push_back(ratioZ);
+    
+    return retVect;
 }
 
 
