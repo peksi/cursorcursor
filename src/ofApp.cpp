@@ -1,5 +1,8 @@
 #include "ofApp.h"
 
+using namespace cv;
+using namespace ofxCv;
+
 //--------------------------------------------------------------
 void ofApp::setup(){
     ofSetFrameRate(60);
@@ -19,9 +22,10 @@ void ofApp::setup(){
     string deviceName = "B525 HD Webcam";
     vector<ofVideoDevice> devices = camera.listDevices();
     camera.setDeviceID(devices[1].id);
-    camera.initGrabber(1280,720);
     camResWidth = 1280;
     camResHeight = 720;
+    camera.initGrabber(camResWidth,camResHeight);
+    
     
     // Virtual camera
     virtualCamera.setTarget(ofVec3f(0, 0 ,0));
@@ -40,10 +44,16 @@ void ofApp::update(){
     camera.update();
     
     // Flip camera image for eyetracker.
-    ofPixels cameraImage = camera.getPixels();
-    cameraImage.mirror(true, true);
-    flippedCameraImage.setFromPixels(cameraImage);
-    eyeTracker.updateImage(flippedCameraImage);
+    if (flipImage) {
+        ofPixels cameraImage = camera.getPixels();
+        cameraImage.mirror(true, true);
+        flippedCameraImage.setFromPixels(cameraImage);
+        eyeTracker.updateImage(flippedCameraImage);
+    } else {
+        ofPixels cameraImage = camera.getPixels();
+        normalCameraImage.setFromPixels(cameraImage);
+        eyeTracker.updateImage(normalCameraImage);
+    }
     
     // Handle OSC data. You should have processing sketch running.
     // check for waiting messages
@@ -71,7 +81,12 @@ void ofApp::draw(){
     // EYE-CAMERA IMAGE
     if (showCamera) {
         ofPushMatrix();
-        flippedCameraImage.draw(0, 0);
+        if (flipImage) {
+            flippedCameraImage.draw(0, 0);
+        } else {
+            normalCameraImage.draw(0, 0);
+        }
+        
         ofPopMatrix();
     }
     
@@ -245,6 +260,7 @@ void ofApp::setupGui() {
     viewGui.setPosition(10, 10);
     viewParameterGroup.setName("View controls");
     viewParameterGroup.add(showCamera.set("Show camera feed",true));
+    viewParameterGroup.add(flipImage.set("Flip camera image",true));
     viewParameterGroup.add(showLog.set("Show camera log",false));
     viewParameterGroup.add(show3D.set("Show 3D visualisation",true));
     viewParameterGroup.add(showAxis.set("Show 3D axis",true));

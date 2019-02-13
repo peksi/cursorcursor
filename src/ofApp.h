@@ -48,7 +48,7 @@ class ofApp : public ofBaseApp{
     ofxPanel fboGui;
     ofParameterGroup viewParameterGroup;
     ofParameterGroup fboParameterGroup;
-    ofParameter<bool> showCamera, show3D, showLog, showAxis;
+    ofParameter<bool> showCamera, show3D, showLog, showAxis, flipImage;
     
     // Personal class instances
     WallOrganiser wallOrganiser;
@@ -67,6 +67,7 @@ class ofApp : public ofBaseApp{
     // Eyetracker camera
     ofVideoGrabber camera;
     ofImage flippedCameraImage;
+    ofImage normalCameraImage;
     int camResWidth, camResHeight;
     
     // Virtual camera

@@ -7,6 +7,9 @@
 
 #include "Eyetracker.hpp"
 
+using namespace cv;
+using namespace ofxCv;
+
 Eyetracker::Eyetracker() {
     cameraImage.allocate(1280, 720);
 }
