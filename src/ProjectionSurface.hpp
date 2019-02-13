@@ -27,9 +27,17 @@ public:
     vector<ofVec2f> wallCoordVector;
     ofVec2f surfaceStart, surfaceEnd;
     ofPath projectionPath;
+    
+    /// \brief returns true if ray is colliding with projection surface
     bool raySurfaceIntersection(ofVec3f* rayOrigin, ofVec3f* ray);
+    
+    /// \brief calculate surface intersection coordinates
     ofVec3f raySurfaceIntersectionCoord(ofVec3f* rayOrigin, ofVec3f* ray);
+    
+    /// \brief Contact point in world coordinates where ray is colliding with projectionSurface
     ofVec3f contactPoint;
+    
+    /// \brief Returns the point where ray is pointing in projecting canvas coordinate space (x,y)
     vector<float> contactPointToProjectionSurfaceCoord();
     bool rayContact;
     
