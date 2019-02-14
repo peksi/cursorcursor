@@ -9,6 +9,9 @@
 
 User::User() {
     rotationOffset = 45;
+    
+    position = ofVec3f(0,0,0);
+    incomingPosition = ofVec3f(0,0,0);
 }
 void User::setup() {
     
@@ -16,16 +19,32 @@ void User::setup() {
 
 void User::updateUser(vector<string> _incomingOSCmessage) {
     // slot [0] & [1] are reserved for 'POS' and tagID.
-    position = ofVec3f(ofToFloat(_incomingOSCmessage[3])/10,
-                       ofToFloat(_incomingOSCmessage[2])/10,
-                       ofToFloat(_incomingOSCmessage[4])/10
+    incomingPosition = ofVec3f(ofToFloat(_incomingOSCmessage[3])/10,
+                               ofToFloat(_incomingOSCmessage[2])/10,
+                               ofToFloat(_incomingOSCmessage[4])/10
                        );
+    if (flipX) {
+        incomingPosition.x = -incomingPosition.x;
+    }
+    if (flipY) {
+        incomingPosition.y = -incomingPosition.y;
+    }
+    if (flipZ) {
+        incomingPosition.z = -incomingPosition.z;
+    }
+    
     rotation = ofVec3f(ofToFloat(_incomingOSCmessage[5]),
                        ofToFloat(_incomingOSCmessage[6]),
                        ofToFloat(_incomingOSCmessage[7])
                        );
 }
-
+void User::smoothPosition() {
+    float smoothX = ofLerp(position.x,incomingPosition.x,0.01);
+    float smoothY = ofLerp(position.y,incomingPosition.y,0.01);
+    float smoothZ = ofLerp(position.z,incomingPosition.z,0.01);
+    
+    position = ofVec3f(smoothX+xOffset,smoothY+yOffset,smoothZ+zOffset);
+}
 void User::displayUser() {
     calculateRay();
     displayRay();
@@ -60,9 +79,9 @@ void User::smoothRay() {
     
     if (rayMatched == false) {
         normalSmoothedRay = smoothedRay.getNormalized();
-        float smoothX = ofLerp(normalSmoothedRay.x,normalRay.x,0.01);
-        float smoothY = ofLerp(normalSmoothedRay.y,normalRay.y,0.01);
-        float smoothZ = ofLerp(normalSmoothedRay.z,normalRay.z,0.01);
+        float smoothX = ofLerp(normalSmoothedRay.x,normalRay.x,0.1);
+        float smoothY = ofLerp(normalSmoothedRay.y,normalRay.y,0.1);
+        float smoothZ = ofLerp(normalSmoothedRay.z,normalRay.z,0.1);
         
         normalSmoothedRay = ofVec3f(smoothX,smoothY,smoothZ);
         smoothedRay = normalSmoothedRay * 1000;

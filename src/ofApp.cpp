@@ -73,6 +73,8 @@ void ofApp::update(){
             }
         }
     }
+    
+    user.smoothPosition();
 }
 
 //--------------------------------------------------------------
@@ -288,6 +290,12 @@ void ofApp::setupGui() {
     userGui.setPosition(10,viewGui.getHeight()+20);
     userParameterGroup.setName("User controls");
     userParameterGroup.add(user.rotationOffset.set("Rotation offset",45,0,360));
+    userParameterGroup.add(user.xOffset.set("xOffset",10,-100,100));
+    userParameterGroup.add(user.yOffset.set("yOffset",-1,-100,100));
+    userParameterGroup.add(user.zOffset.set("zOffset",0,-100,100));
+    userParameterGroup.add(user.flipX.set("flip X axis",true));
+    userParameterGroup.add(user.flipY.set("flip X axis",false));
+    userParameterGroup.add(user.flipZ.set("flip X axis",false));
     userGui.add(userParameterGroup);
     
 }

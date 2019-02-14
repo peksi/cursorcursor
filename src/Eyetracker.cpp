@@ -24,6 +24,7 @@ void Eyetracker::setup() {
 }
 void Eyetracker::updateImage(ofImage _cameraImage) {
     cameraImage = _cameraImage;
+    
 }
 void Eyetracker::detectEyes() {
     eyeFinder.update(cameraImage);
