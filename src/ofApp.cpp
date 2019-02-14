@@ -94,7 +94,8 @@ void ofApp::draw(){
         ofPopMatrix();
     }
     
-    eyeTracker.detectEyes();
+//    eyeTracker.detectEyes();
+    eyeTracker.updateDetectedEyes();
     
     // 3D VISUALISATION MATRIX
     if (show3D) {
@@ -120,24 +121,6 @@ void ofApp::draw(){
         virtualCamera.end();
         ofDisableDepthTest();
     }
-    
-    
-    // EYE-CAMERA LOG
-    if (showLog) {
-        /*
-        std::stringstream ss;
-        ss << " App FPS: " << ofGetFrameRate() << std::endl;
-        ss << " Cam FPS: " << camera.getGrabber<ofxPS3EyeGrabber>()->getFPS() << std::endl;
-        ss << "Real FPS: " << camera.getGrabber<ofxPS3EyeGrabber>()->getActualFPS() << std::endl;
-        ss << "      id: 0x" << ofToHex(camera.getGrabber<ofxPS3EyeGrabber>()->getDeviceId());
-        ofPushStyle();
-        ofSetColor(255);
-        ofDrawBitmapString(ss.str(), ofPoint(10, ofGetHeight()-50));
-        ofPopStyle();
-        */
-    }
-    
-    eyeTracker.drawDetectedEyes();
     
     viewGui.draw();
     fboGui.draw();

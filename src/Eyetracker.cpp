@@ -101,17 +101,21 @@ cv::Point stabilize(std::vector<cv::Point> &points, int windowSize)
 
 
 void Eyetracker::detectEyes() {
+    
+
+
+
+}
+
+void Eyetracker::updateDetectedEyes() {
     eyeFinder.update(cameraImage);
-
-
+    
     // only for drawing
     for (int i = 0; i < eyeFinder.size(); i++) {
         ofRectangle object = eyeFinder.getObjectSmoothed(i);
     }
 
-}
-
-void Eyetracker::drawDetectedEyes() {
+    
     for (int i = 0; i < eyeFinder.size(); i++) {
         ofRectangle object = eyeFinder.getObjectSmoothed(i);
 
@@ -138,12 +142,6 @@ void Eyetracker::drawDetectedEyes() {
         for (int i = 0; i < circles.size(); i++) {
             cout << circles[i] << endl;
         }
-        
-        if(circles.size() > 0){
-            ofVec3f iris = toOf(circles[0]);
-            ofDrawCircle(iris.x, iris.y, iris.z);
-        }
-        
         
         if(circles.size() > 0){
             std::vector<cv::Point> centers;

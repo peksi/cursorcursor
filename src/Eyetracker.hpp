@@ -22,7 +22,7 @@ public:
     void setup();
     void updateImage(ofImage _cameraImage);
     void detectEyes();
-    void drawDetectedEyes();
+    void updateDetectedEyes();
     
     ofxCvColorImage cameraImage;
     ofxCvGrayscaleImage grayscaleFrame;
