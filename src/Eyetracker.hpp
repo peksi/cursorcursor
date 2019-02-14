@@ -30,7 +30,6 @@ public:
     
     cv::CascadeClassifier faceCascade;
     cv::CascadeClassifier eyeCascade;
-
 private:
 };
 
