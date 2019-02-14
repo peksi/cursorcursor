@@ -7,17 +7,17 @@ using namespace ofxCv;
 void ofApp::setup(){
     ofSetFrameRate(60);
     ofSetVerticalSync(true);
-    
+
     // XML
     string file = "config.xml";
     bool parsingSuccessful = XMLconfig.loadFile(file);
     if (parsingSuccessful) {
         wallOrganiser.setup(XMLconfig,&user.position,&user.normalRay);
     }
-    
+
     // GUI
     setupGui();
-    
+
     // Syphon
     for (int i = 0; i < wallOrganiser.wallVector.size(); i++) {
         if (wallOrganiser.wallVector[i].projectionAttached) {
@@ -30,7 +30,7 @@ void ofApp::setup(){
     for (int i = 0; i < syphonServers.size(); i++) {
         syphonServers[i].setName("ProjectionFbo " + to_string(i));
     }
-    
+
     // Eyetracker camera
     string deviceName = "B525 HD Webcam";
     vector<ofVideoDevice> devices = camera.listDevices();
@@ -38,15 +38,15 @@ void ofApp::setup(){
     camResWidth = 1280;
     camResHeight = 720;
     camera.initGrabber(camResWidth,camResHeight);
-    
-    
+
+
     // Virtual camera
     virtualCamera.setTarget(ofVec3f(0, 0 ,0));
     virtualCamera.setDistance(1500);
     xOrigin = -340.0;
     yOrigin = -600.0;
     zOrigin = 0.0;
-    
+
     // OSC
     std::cout << "listening for osc messages on port " << PORT << "\n";
     receiver.setup( PORT );
@@ -55,7 +55,7 @@ void ofApp::setup(){
 //--------------------------------------------------------------
 void ofApp::update(){
     camera.update();
-    
+
     // Flip camera image for eyetracker.
     if (flipImage) {
         ofPixels cameraImage = camera.getPixels();
@@ -67,7 +67,7 @@ void ofApp::update(){
         normalCameraImage.setFromPixels(cameraImage);
         eyeTracker.updateImage(normalCameraImage);
     }
-    
+
     // Handle OSC data. You should have processing sketch running.
     // check for waiting messages
     while(receiver.hasWaitingMessages()){
@@ -84,18 +84,21 @@ void ofApp::update(){
             }
         }
     }
-    
+
     user.smoothPosition();
+
+    eyeTracker.updateDetectedEyes();
+
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
     glClearColor(0.0, 0.0, 0.0, 0.0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    
+
     ofBackground(40);
     ofSetWindowTitle(ofToString(ofGetFrameRate()));
-    
+
     // EYE-CAMERA IMAGE
     if (showCamera) {
         ofPushMatrix();
@@ -104,45 +107,44 @@ void ofApp::draw(){
         } else {
             normalCameraImage.draw(0, 0);
         }
-        
+
         ofPopMatrix();
     }
-    
-    eyeTracker.detectEyes();
-    
+
     // 3D VISUALISATION MATRIX
     if (show3D) {
         ofEnableDepthTest();
         virtualCamera.begin();
-        
+
         ofPushMatrix();
         ofRotateDeg(180, 1, 0, 0);
         ofTranslate(xOrigin,yOrigin,zOrigin);
-        
+
         wallOrganiser.displayGroundplane();
         wallOrganiser.displayWalls();
         wallOrganiser.displayProjections();
-        
+
         user.displayUser();
-        
+
         ofPopMatrix();
-        
+
         if (showAxis) {
            drawAxis();
         }
-        
+
         virtualCamera.end();
         ofDisableDepthTest();
     }
-    
-    eyeTracker.drawDetectedEyes();
+
     wallOrganiser.displayFbo();
-    
+
     for (int i = 0; i < syphonServers.size(); i++) {
         ofTexture currentTexture = syphonTextures[i]->getTexture();
         syphonServers[i].publishTexture(&currentTexture);
     }
-    
+
+    eyeTracker.drawHelpers();
+
     viewGui.draw();
     fboGui.draw();
     userGui.draw();
@@ -234,7 +236,7 @@ void ofApp::gotMessage(ofMessage msg){
 }
 
 //--------------------------------------------------------------
-void ofApp::dragEvent(ofDragInfo dragInfo){ 
+void ofApp::dragEvent(ofDragInfo dragInfo){
 
 }
 void ofApp::drawAxis() {
@@ -245,7 +247,7 @@ void ofApp::drawAxis() {
     ofDrawLine(0, 0, 0,
                250, 0, 0);
     ofPopStyle();
-    
+
     // Y-Axis
     ofPushStyle();
     ofSetColor(0, 255, 0);
@@ -253,7 +255,7 @@ void ofApp::drawAxis() {
     ofDrawLine(0, 0, 0,
                0,250, 0);
     ofPopStyle();
-    
+
     // Z-Axis
     ofPushStyle();
     ofSetColor(0, 0, 255);
@@ -261,7 +263,7 @@ void ofApp::drawAxis() {
     ofDrawLine(0, 0, 0,
                0, 0, 250);
     ofPopStyle();
-    
+
     // Origin
     ofPushStyle();
     ofSetColor(255, 255, 255);
@@ -279,7 +281,7 @@ void ofApp::setupGui() {
     viewParameterGroup.add(show3D.set("Show 3D visualisation",false));
     viewParameterGroup.add(showAxis.set("Show 3D axis",true));
     viewGui.add(viewParameterGroup);
-    
+
     fboGui.setup("FBO GUI");
     fboGui.setPosition(ofGetWidth()-fboGui.getWidth()-10, 10);
     fboParameterGroup.setName("FBO controls");
@@ -289,7 +291,7 @@ void ofApp::setupGui() {
         }
     }
     fboGui.add(fboParameterGroup);
-    
+
     userGui.setup("User GUI");
     userGui.setPosition(10,viewGui.getHeight()+20);
     userParameterGroup.setName("User controls");
@@ -302,5 +304,5 @@ void ofApp::setupGui() {
     userParameterGroup.add(user.flipY.set("flip Y axis",false));
     userParameterGroup.add(user.flipZ.set("flip Z axis",false));
     userGui.add(userParameterGroup);
-    
+
 }
