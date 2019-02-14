@@ -100,32 +100,25 @@ cv::Point stabilize(std::vector<cv::Point> &points, int windowSize)
 }
 
 
-void Eyetracker::detectEyes() {
-    
-
-
-
-}
-
-void Eyetracker::updateDetectedEyes() {
-    eyeFinder.update(cameraImage);
-    
-    // only for drawing
+void Eyetracker::drawHelpers() {
     for (int i = 0; i < eyeFinder.size(); i++) {
         ofRectangle object = eyeFinder.getObjectSmoothed(i);
-    }
-
-    
-    for (int i = 0; i < eyeFinder.size(); i++) {
-        ofRectangle object = eyeFinder.getObjectSmoothed(i);
-
+        
         ofPath eyeBox;
         eyeBox.setColor(ofColor(0,255,0));
         eyeBox.setStrokeWidth(5);
         eyeBox.setFilled(false);
         eyeBox.rectangle(object.x, object.y, object.width, object.height);
-        eyeBox.draw();
+        //        eyeBox.draw();
     }
+
+
+    ofDrawCircle(irisPoint + irisBoxOffset, irisRadius);
+}
+
+void Eyetracker::updateDetectedEyes() {
+    eyeFinder.update(cameraImage);
+
 
     if(eyeFinder.size() > 0){
         ofRectangle object = eyeFinder.getObjectSmoothed(0);
@@ -157,11 +150,12 @@ void Eyetracker::updateDetectedEyes() {
                 mousePoint += diff;
             }
             lastPoint = center;
-            int radius = (int)eyeball[2];
+            irisRadius = (int)eyeball[2];
             
-            ofVec2f irisPoint = toOf(center);
-            ofVec2f irisBoxOffsetX = toOf(roi.tl());
-            ofDrawCircle(irisPoint + irisBoxOffsetX, radius);
+            
+            irisPoint = toOf(center);
+            irisBoxOffset = toOf(roi.tl());
+//
             
         }
     }

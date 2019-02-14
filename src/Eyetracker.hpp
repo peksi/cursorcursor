@@ -22,6 +22,7 @@ public:
     void setup();
     void updateImage(ofImage _cameraImage);
     void detectEyes();
+    void drawHelpers();
     void updateDetectedEyes();
     
     ofxCvColorImage cameraImage;
@@ -33,6 +34,8 @@ public:
     cv::CascadeClassifier faceCascade;
     cv::CascadeClassifier eyeCascade;
 private:
+    ofVec2f irisPoint, irisBoxOffset;
+    int irisRadius;
 };
 
 #endif /* Eyetracker_hpp */

@@ -55,8 +55,6 @@ void ofApp::update(){
         eyeTracker.updateImage(normalCameraImage);
     }
     
-    
-    
     // Handle OSC data. You should have processing sketch running.
     // check for waiting messages
     while(receiver.hasWaitingMessages()){
@@ -75,6 +73,9 @@ void ofApp::update(){
     }
     
     user.smoothPosition();
+    
+    eyeTracker.updateDetectedEyes();
+    
 }
 
 //--------------------------------------------------------------
@@ -93,9 +94,6 @@ void ofApp::draw(){
         
         ofPopMatrix();
     }
-    
-//    eyeTracker.detectEyes();
-    eyeTracker.updateDetectedEyes();
     
     // 3D VISUALISATION MATRIX
     if (show3D) {
@@ -121,6 +119,8 @@ void ofApp::draw(){
         virtualCamera.end();
         ofDisableDepthTest();
     }
+    
+    eyeTracker.drawHelpers();
     
     viewGui.draw();
     fboGui.draw();
@@ -255,7 +255,7 @@ void ofApp::setupGui() {
     viewParameterGroup.add(showCamera.set("Show camera feed",true));
     viewParameterGroup.add(flipImage.set("Flip camera image",true));
     viewParameterGroup.add(showLog.set("Show camera log",false));
-    viewParameterGroup.add(show3D.set("Show 3D visualisation",true));
+    viewParameterGroup.add(show3D.set("Show 3D visualisation",false));
     viewParameterGroup.add(showAxis.set("Show 3D axis",true));
     viewGui.add(viewParameterGroup);
     
