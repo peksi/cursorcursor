@@ -13,14 +13,14 @@ using namespace ofxCv;
 Eyetracker::Eyetracker() {
     cameraImage.allocate(1280, 720);
     grayscaleFrame.allocate(1280,720);
-    
+
     eyeFinder.setup("haarcascade_eye.xml");
     eyeFinder.setPreset(ObjectFinder::Fast);
     eyeFinder.getTracker().setSmoothingRate(0.3);
-    
+
 }
 void Eyetracker::setup() {
-    
+
 }
 void Eyetracker::updateImage(ofImage _cameraImage) {
     cameraImage = _cameraImage;
@@ -102,8 +102,8 @@ cv::Point stabilize(std::vector<cv::Point> &points, int windowSize)
 
 void Eyetracker::detectEyes() {
     eyeFinder.update(cameraImage);
-    
-    
+
+
     // only for drawing
     for (int i = 0; i < eyeFinder.size(); i++) {
         ofRectangle object = eyeFinder.getObjectSmoothed(i);
@@ -114,7 +114,7 @@ void Eyetracker::detectEyes() {
 void Eyetracker::drawDetectedEyes() {
     for (int i = 0; i < eyeFinder.size(); i++) {
         ofRectangle object = eyeFinder.getObjectSmoothed(i);
-        
+
         ofPath eyeBox;
         eyeBox.setColor(ofColor(0,255,0));
         eyeBox.setStrokeWidth(5);
@@ -125,9 +125,8 @@ void Eyetracker::drawDetectedEyes() {
 
     if(eyeFinder.size() > 0){
         ofRectangle object = eyeFinder.getObjectSmoothed(0);
-    
+
         // thanks of, but it's openCV for now
-        
         cv::Mat imageMat = toCv(grayscaleFrame);
         cv::Rect roi = toCv(object); // we expect it to be the leftmost
         cv::Mat roiImg = imageMat(roi);
@@ -167,9 +166,5 @@ void Eyetracker::drawDetectedEyes() {
             ofDrawCircle(irisPoint + irisBoxOffsetX, radius);
             
         }
-        
-        
-        
     }
 }
-

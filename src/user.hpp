@@ -16,6 +16,7 @@ public:
     
     void setup();
     void updateUser(vector<string> _incomingOSCmessage);
+    void smoothPosition();
     void displayUser();
     void calculateRay();
     void smoothRay();
@@ -24,8 +25,11 @@ public:
     ofSpherePrimitive userHead;
     
     ofParameter<float> rotationOffset;
+    ofParameter<float> xOffset,yOffset,zOffset;
+    ofParameter<bool> flipX,flipY,flipZ;
     
     ofVec3f position;
+    ofVec3f incomingPosition;
     ofVec3f rotation;
     
     ofVec3f normalRay;
