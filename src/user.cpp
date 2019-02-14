@@ -8,7 +8,8 @@
 #include "user.hpp"
 
 User::User() {
-    rotationOffset = 45;
+    rotationOffsetH = 45;
+    rotationOffsetV = 0;
     
     position = ofVec3f(0,0,0);
     incomingPosition = ofVec3f(0,0,0);
@@ -19,9 +20,9 @@ void User::setup() {
 
 void User::updateUser(vector<string> _incomingOSCmessage) {
     // slot [0] & [1] are reserved for 'POS' and tagID.
-    incomingPosition = ofVec3f(ofToFloat(_incomingOSCmessage[3])/10,
-                               ofToFloat(_incomingOSCmessage[2])/10,
-                               ofToFloat(_incomingOSCmessage[4])/10
+    incomingPosition = ofVec3f((ofToFloat(_incomingOSCmessage[3])/10),
+                               (ofToFloat(_incomingOSCmessage[2])/10),
+                               (ofToFloat(_incomingOSCmessage[4])/10)
                        );
     if (flipX) {
         incomingPosition.x = -incomingPosition.x;
@@ -39,11 +40,12 @@ void User::updateUser(vector<string> _incomingOSCmessage) {
                        );
 }
 void User::smoothPosition() {
-    float smoothX = ofLerp(position.x,incomingPosition.x,0.01);
-    float smoothY = ofLerp(position.y,incomingPosition.y,0.01);
-    float smoothZ = ofLerp(position.z,incomingPosition.z,0.01);
+    float smoothX = ofLerp(position.x,incomingPosition.x + xOffset,0.01);
+    float smoothY = ofLerp(position.y,incomingPosition.y + yOffset,0.01);
+    float smoothZ = ofLerp(position.z,incomingPosition.z + zOffset,0.01);
     
     position = ofVec3f(smoothX+xOffset,smoothY+yOffset,smoothZ+zOffset);
+    cout << position << endl;
 }
 void User::displayUser() {
     calculateRay();
@@ -59,13 +61,14 @@ void User::displayUser() {
 }
 void User::calculateRay() {
     ofVec3f tempRay = ofVec3f(1,0,0);
-    tempRay.rotate(0,0,rotationOffset); // Calibration rotation
+    tempRay.rotate(0,0,rotationOffsetH); // Calibration rotation
     tempRay.rotate(0, 0, rotation.x);
     
     // Calculate axis around which to rotate Z (tilt), perpendicular to x/y vector.
     ofVec2f tempRay2dVector = ofVec2f(tempRay[0],tempRay[1]);
     ofVec2f zRotationAxis = tempRay2dVector.getPerpendicular();
     
+    tempRay.rotate(rotationOffsetV, zRotationAxis);
     tempRay.rotate(rotation.z, zRotationAxis);
     
     normalRay = tempRay;

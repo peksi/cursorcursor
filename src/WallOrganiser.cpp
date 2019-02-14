@@ -126,3 +126,13 @@ void WallOrganiser::displayProjections() {
         }
     }
 }
+void WallOrganiser::displayFbo() {
+    for (int i = 0; i < wallVector.size(); i++) {
+        if (wallVector[i].projectionAttached) {
+            for (int j = 0; j < wallVector[i].projectionVector.size(); j++) {
+                wallVector[i].projectionVector[j].drawProjectionFbo();
+                wallVector[i].projectionVector[j].displayProjectionFbo();
+            }
+        }
+    }
+}

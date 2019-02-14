@@ -15,12 +15,14 @@ public:
     ProjectionSurface();
     void setup(vector<ofVec2f> _wallCoords,vector<ofVec2f> _projectionCoords,int _projectionId);
     void calculateWorldCoords();
+    void drawProjectionFbo();
     void displayProjection();
     void displayProjectionFbo();
     float wallLength;
     
     int id;
     ofFbo projectionFbo;
+    ofShader projectionShader;
     ofParameter<bool> showFbo;
     
     vector<ofVec2f> projectionCoordVector;

@@ -24,8 +24,10 @@ void ProjectionSurface::setup(vector<ofVec2f> _wallCoords, vector<ofVec2f> _proj
     
     calculateWorldCoords();
     
-    float projectionWidth = abs(_wallCoords[1].x - _wallCoords[0].x);
-    float projectionHeight = abs(_wallCoords[1].y - _wallCoords[0].y);
+    float projectionWallWidth = abs(_wallCoords[1].x - _wallCoords[0].x);
+    float projectionWallHeight = abs(_wallCoords[1].y - _wallCoords[0].y);
+    float projectionWidth = abs(_projectionCoords[1].x - _projectionCoords[0].x);
+    float projectionHeight = abs(_projectionCoords[1].y - _projectionCoords[0].y);
     projectionFbo.allocate(projectionWidth, projectionHeight);
     
     cout << "Projection added to wall with coordinates: ";
@@ -191,8 +193,23 @@ vector<float> ProjectionSurface::contactPointToProjectionSurfaceCoord(){
 
 
 void ProjectionSurface::displayProjectionFbo() {
-    if (projectionFbo.isAllocated()) {
-        projectionFbo.draw(0,0);
+    if (showFbo) {
+        if (projectionFbo.isAllocated()) {
+            projectionFbo.draw(0,0);
+        }
     }
+}
+void ProjectionSurface::drawProjectionFbo() {
+    projectionFbo.begin();
+    projectionShader.begin();
+        ofPushMatrix();
+        ofTranslate(abs(projectionCoordVector[1].x - projectionCoordVector[0].x)/2,
+                    abs(projectionCoordVector[1].y - projectionCoordVector[0].y)/2);
+        ofDrawPlane(0, 0,
+                    abs(projectionCoordVector[1].x - projectionCoordVector[0].x),
+                    abs(projectionCoordVector[1].y - projectionCoordVector[0].y));
+        ofPopMatrix();
+    projectionShader.end();
+    projectionFbo.end();
 }
 

@@ -24,7 +24,7 @@ public:
     
     ofSpherePrimitive userHead;
     
-    ofParameter<float> rotationOffset;
+    ofParameter<float> rotationOffsetH,rotationOffsetV;
     ofParameter<float> xOffset,yOffset,zOffset;
     ofParameter<bool> flipX,flipY,flipZ;
     

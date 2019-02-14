@@ -18,6 +18,19 @@ void ofApp::setup(){
     // GUI
     setupGui();
     
+    // Syphon
+    for (int i = 0; i < wallOrganiser.wallVector.size(); i++) {
+        if (wallOrganiser.wallVector[i].projectionAttached) {
+            for (int j = 0; j < wallOrganiser.wallVector[i].projectionVector.size(); j++) {
+                syphonServers.push_back(*new ofxSyphonServer);
+                syphonTextures.push_back(&wallOrganiser.wallVector[i].projectionVector[j].projectionFbo);
+            }
+        }
+    }
+    for (int i = 0; i < syphonServers.size(); i++) {
+        syphonServers[i].setName("ProjectionFbo " + to_string(i));
+    }
+    
     // Eyetracker camera
     string deviceName = "B525 HD Webcam";
     vector<ofVideoDevice> devices = camera.listDevices();
@@ -55,8 +68,6 @@ void ofApp::update(){
         eyeTracker.updateImage(normalCameraImage);
     }
     
-    
-    
     // Handle OSC data. You should have processing sketch running.
     // check for waiting messages
     while(receiver.hasWaitingMessages()){
@@ -79,6 +90,9 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
+    glClearColor(0.0, 0.0, 0.0, 0.0);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    
     ofBackground(40);
     ofSetWindowTitle(ofToString(ofGetFrameRate()));
     
@@ -121,23 +135,13 @@ void ofApp::draw(){
         ofDisableDepthTest();
     }
     
-    
-    // EYE-CAMERA LOG
-    if (showLog) {
-        /*
-        std::stringstream ss;
-        ss << " App FPS: " << ofGetFrameRate() << std::endl;
-        ss << " Cam FPS: " << camera.getGrabber<ofxPS3EyeGrabber>()->getFPS() << std::endl;
-        ss << "Real FPS: " << camera.getGrabber<ofxPS3EyeGrabber>()->getActualFPS() << std::endl;
-        ss << "      id: 0x" << ofToHex(camera.getGrabber<ofxPS3EyeGrabber>()->getDeviceId());
-        ofPushStyle();
-        ofSetColor(255);
-        ofDrawBitmapString(ss.str(), ofPoint(10, ofGetHeight()-50));
-        ofPopStyle();
-        */
-    }
-    
     eyeTracker.drawDetectedEyes();
+    wallOrganiser.displayFbo();
+    
+    for (int i = 0; i < syphonServers.size(); i++) {
+        ofTexture currentTexture = syphonTextures[i]->getTexture();
+        syphonServers[i].publishTexture(&currentTexture);
+    }
     
     viewGui.draw();
     fboGui.draw();
@@ -272,7 +276,7 @@ void ofApp::setupGui() {
     viewParameterGroup.add(showCamera.set("Show camera feed",true));
     viewParameterGroup.add(flipImage.set("Flip camera image",true));
     viewParameterGroup.add(showLog.set("Show camera log",false));
-    viewParameterGroup.add(show3D.set("Show 3D visualisation",true));
+    viewParameterGroup.add(show3D.set("Show 3D visualisation",false));
     viewParameterGroup.add(showAxis.set("Show 3D axis",true));
     viewGui.add(viewParameterGroup);
     
@@ -289,13 +293,14 @@ void ofApp::setupGui() {
     userGui.setup("User GUI");
     userGui.setPosition(10,viewGui.getHeight()+20);
     userParameterGroup.setName("User controls");
-    userParameterGroup.add(user.rotationOffset.set("Rotation offset",45,0,360));
+    userParameterGroup.add(user.rotationOffsetH.set("Rotation offset H",45,0,360));
+    userParameterGroup.add(user.rotationOffsetV.set("Rotation offset V",45,0,360));
     userParameterGroup.add(user.xOffset.set("xOffset",10,-100,100));
     userParameterGroup.add(user.yOffset.set("yOffset",-1,-100,100));
     userParameterGroup.add(user.zOffset.set("zOffset",0,-100,100));
     userParameterGroup.add(user.flipX.set("flip X axis",true));
-    userParameterGroup.add(user.flipY.set("flip X axis",false));
-    userParameterGroup.add(user.flipZ.set("flip X axis",false));
+    userParameterGroup.add(user.flipY.set("flip Y axis",false));
+    userParameterGroup.add(user.flipZ.set("flip Z axis",false));
     userGui.add(userParameterGroup);
     
 }

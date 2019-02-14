@@ -25,6 +25,7 @@ public:
     void displayWalls();
     void displayGroundplane();
     void displayProjections();
+    void displayFbo();
     
     vector<Wall> wallVector;
 

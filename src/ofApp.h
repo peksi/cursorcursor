@@ -12,6 +12,7 @@
 #include "ofxOpenCv.h"
 #include "ofxCv.h"
 #include "ofxPS3EyeGrabber.h"
+#include "ofxSyphon.h"
 
 // Personal includes
 #include "WallOrganiser.hpp"
@@ -75,4 +76,8 @@ class ofApp : public ofBaseApp{
     // Virtual camera
     ofEasyCam virtualCamera;
     float xOrigin,yOrigin,zOrigin;
+    
+    // Syphon
+    vector<ofxSyphonServer> syphonServers;
+    vector<ofFbo*> syphonTextures;
 };

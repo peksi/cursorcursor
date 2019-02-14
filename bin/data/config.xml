@@ -17,7 +17,7 @@
                 <beginX>10</beginX>
                 <beginY>90</beginY>
                 <endX>500</endX>
-                <endY>90</endY>
+                <endY>300</endY>
                 <wallId>2</wallId>
                 <projectionId>2</projectionId>
             </element>
