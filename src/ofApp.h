@@ -51,7 +51,7 @@ class ofApp : public ofBaseApp{
     ofParameterGroup viewParameterGroup;
     ofParameterGroup fboParameterGroup;
     ofParameterGroup userParameterGroup;
-    ofParameter<bool> showCamera, show3D, showLog, showAxis, flipImage;
+    ofParameter<bool> showCamera, show3D, showLog, showAxis, flipImage, doEyeTrack;
     
     // Personal class instances
     WallOrganiser wallOrganiser;

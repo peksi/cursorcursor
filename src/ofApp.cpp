@@ -61,11 +61,15 @@ void ofApp::update(){
         ofPixels cameraImage = camera.getPixels();
         cameraImage.mirror(true, true);
         flippedCameraImage.setFromPixels(cameraImage);
-        eyeTracker.updateImage(flippedCameraImage);
+        if(doEyeTrack){
+            eyeTracker.updateImage(flippedCameraImage);
+        }
     } else {
         ofPixels cameraImage = camera.getPixels();
         normalCameraImage.setFromPixels(cameraImage);
-        eyeTracker.updateImage(normalCameraImage);
+        if(doEyeTrack){
+            eyeTracker.updateImage(normalCameraImage);
+        }
     }
 
     // Handle OSC data. You should have processing sketch running.
@@ -87,8 +91,9 @@ void ofApp::update(){
 
     user.smoothPosition();
 
-    eyeTracker.updateDetectedEyes();
-
+    if(doEyeTrack){
+        eyeTracker.updateDetectedEyes();
+    }
 }
 
 //--------------------------------------------------------------
@@ -143,7 +148,10 @@ void ofApp::draw(){
         syphonServers[i].publishTexture(&currentTexture);
     }
 
-    eyeTracker.drawHelpers();
+    if(doEyeTrack){
+        eyeTracker.drawHelpers();
+    }
+    
 
     viewGui.draw();
     fboGui.draw();
@@ -276,6 +284,7 @@ void ofApp::setupGui() {
     viewGui.setPosition(10, 10);
     viewParameterGroup.setName("View controls");
     viewParameterGroup.add(showCamera.set("Show camera feed",true));
+    viewParameterGroup.add(doEyeTrack.set("Do eyetracking", false));
     viewParameterGroup.add(flipImage.set("Flip camera image",true));
     viewParameterGroup.add(showLog.set("Show camera log",false));
     viewParameterGroup.add(show3D.set("Show 3D visualisation",false));

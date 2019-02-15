@@ -29,10 +29,6 @@ public:
     ofxCvGrayscaleImage grayscaleFrame;
     ofxCv::ObjectFinder eyeFinder;
     
-    
-    
-    cv::CascadeClassifier faceCascade;
-    cv::CascadeClassifier eyeCascade;
 private:
     ofVec2f irisPoint, irisBoxOffset;
     int irisRadius;

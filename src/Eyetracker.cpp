@@ -16,6 +16,7 @@ Eyetracker::Eyetracker() {
 
     eyeFinder.setup("haarcascade_eye.xml");
     eyeFinder.setPreset(ObjectFinder::Fast);
+    eyeFinder.setRescale(0.25);
     eyeFinder.getTracker().setSmoothingRate(0.3);
 
 }
@@ -120,12 +121,21 @@ void Eyetracker::updateDetectedEyes() {
     eyeFinder.update(cameraImage);
 
 
-    if(eyeFinder.size() > 0){
-        ofRectangle object = eyeFinder.getObjectSmoothed(0);
+    if(eyeFinder.size() == 2){ // was > 0
+        vector<cv::Rect> passVector;
+        
+        for (int i = 0; i < eyeFinder.size(); i++) {
+            cv::Rect tempRect = toCv(eyeFinder.getObjectSmoothed(i));
+            passVector.push_back(tempRect);
+        }
+        
+        cv::Rect object = getLeftmostEye(passVector);
 
         // thanks of, but it's openCV for now
         cv::Mat imageMat = toCv(grayscaleFrame);
-        cv::Rect roi = toCv(object); // we expect it to be the leftmost
+        
+        
+        cv::Rect roi = object;
         cv::Mat roiImg = imageMat(roi);
         cv::equalizeHist(roiImg, roiImg);
         
