@@ -8,8 +8,11 @@
 #include "ProjectionSurface.hpp"
 
 ProjectionSurface::ProjectionSurface() {
-    if(!projectionShader.load("projectionShader")) {
-        cout << "Could not load shader correctly" << endl;
+    if (!projectionShader.load("projectionShader")) {
+        cout << "Could not load projection shader correctly" << endl;
+    }
+    if (!clearShader.load("clearShader")) {
+        cout << "Could not load clear shader correctly" << endl;
     }
 }
 void ProjectionSurface::setup(vector<ofVec2f> _wallCoords, vector<ofVec2f> _projectionCoords, int _projectionId) {
@@ -205,11 +208,12 @@ void ProjectionSurface::drawProjectionFbo() {
     ofVec2f contactPointsProjection = contactPointToProjectionSurfaceCoord();
 
     projectionFbo.begin();
-    projectionShader.begin();
-    projectionShader.setUniform2f("u_resolution", projectionWidth, projectionHeight);
-    projectionShader.setUniform2f("u_contactPoint", contactPointsProjection.x,contactPointsProjection.y);
-    projectionShader.setUniform2f("u_mousePosition", ofGetMouseX(), ofGetMouseY());
-    projectionShader.setUniform1f("u_time",ofGetElapsedTimeMillis());
+    if (rayContact) {
+        projectionShader.begin();
+        projectionShader.setUniform2f("u_resolution", projectionWidth, projectionHeight);
+        projectionShader.setUniform2f("u_contactPoint", contactPointsProjection.x,contactPointsProjection.y);
+        projectionShader.setUniform2f("u_mousePosition", ofGetMouseX(), ofGetMouseY());
+        projectionShader.setUniform1f("u_time",ofGetElapsedTimeMillis());
         ofPushMatrix();
         ofTranslate(abs(projectionCoordVector[1].x - projectionCoordVector[0].x)/2,
                     abs(projectionCoordVector[1].y - projectionCoordVector[0].y)/2);
@@ -217,7 +221,12 @@ void ProjectionSurface::drawProjectionFbo() {
                     abs(projectionCoordVector[1].x - projectionCoordVector[0].x),
                     abs(projectionCoordVector[1].y - projectionCoordVector[0].y));
         ofPopMatrix();
-    projectionShader.end();
+        projectionShader.end();
+    } else {
+        clearShader.begin();
+        clearShader.end();
+    }
+    
     projectionFbo.end();
 }
 

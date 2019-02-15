@@ -23,6 +23,7 @@ public:
     int id;
     ofFbo projectionFbo;
     ofShader projectionShader;
+    ofShader clearShader;
     ofParameter<bool> showFbo;
     
     vector<ofVec2f> projectionCoordVector;

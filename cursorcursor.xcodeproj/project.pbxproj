@@ -76,6 +76,7 @@
 		F24659E223C9B1B9855971F2 /* WallOrganiser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46121130A96B3E7D60A25BBA /* WallOrganiser.cpp */; };
 		F285EB3169F1566CA3D93C20 /* ofxPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E112B3AEBEA2C091BF2B40AE /* ofxPanel.cpp */; };
 		F2D98FC22216147000A3B3A0 /* projectionShader.vert in Sources */ = {isa = PBXBuildFile; fileRef = F2D98FC12216147000A3B3A0 /* projectionShader.vert */; };
+		F2D98FCA2216A2A800A3B3A0 /* clearShader.frag in Sources */ = {isa = PBXBuildFile; fileRef = F2D98FC82216A2A800A3B3A0 /* clearShader.frag */; };
 		F4135EEFC911E9ED211FB6F9 /* core.c in Sources */ = {isa = PBXBuildFile; fileRef = CF528C0E8DBFF5C31E8D6529 /* core.c */; };
 		F76B4A79BD8DE4854141CB47 /* fdog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A2D8249D46647E3C51769CDE /* fdog.cpp */; };
 		FB09C6B2A1DA0EA217240CB8 /* ofxCvGrayscaleImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 057122A817D12571F8C0C7A4 /* ofxCvGrayscaleImage.cpp */; };
@@ -601,6 +602,8 @@
 		F2D98FBF2216145A00A3B3A0 /* cursorcursor.app */ = {isa = PBXFileReference; lastKnownFileType = wrapper.application; path = cursorcursor.app; sourceTree = "<group>"; };
 		F2D98FC02216147000A3B3A0 /* projectionShader.frag */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = projectionShader.frag; sourceTree = "<group>"; };
 		F2D98FC12216147000A3B3A0 /* projectionShader.vert */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = projectionShader.vert; sourceTree = "<group>"; };
+		F2D98FC82216A2A800A3B3A0 /* clearShader.frag */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = clearShader.frag; sourceTree = "<group>"; };
+		F2D98FC92216A2A800A3B3A0 /* clearShader.vert */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = clearShader.vert; sourceTree = "<group>"; };
 		F2F75C2513DDF24A79A894DF /* warpers.hpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = warpers.hpp; path = ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/stitching/warpers.hpp; sourceTree = SOURCE_ROOT; };
 		F3C32677C12BD67CF9F8980E /* Kalman.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = Kalman.h; path = ../../../addons/ofxCv/libs/ofxCv/include/ofxCv/Kalman.h; sourceTree = SOURCE_ROOT; };
 		F43B0D995F81680C1FD62BFE /* NPP_staging.hpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = NPP_staging.hpp; path = ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/cudalegacy/NPP_staging.hpp; sourceTree = SOURCE_ROOT; };
@@ -1852,6 +1855,8 @@
 				F2D98FAD2216145A00A3B3A0 /* haarcascades */,
 				F2D98FC02216147000A3B3A0 /* projectionShader.frag */,
 				F2D98FC12216147000A3B3A0 /* projectionShader.vert */,
+				F2D98FC82216A2A800A3B3A0 /* clearShader.frag */,
+				F2D98FC92216A2A800A3B3A0 /* clearShader.vert */,
 			);
 			path = data;
 			sourceTree = "<group>";
@@ -2126,6 +2131,7 @@
 				4ADB88E2FB52E76A471065DE /* ofxOscParameterSync.cpp in Sources */,
 				5864AD82E20F15536D054EA3 /* ofxOscMessage.cpp in Sources */,
 				72A929D3561B8232A182ABFC /* ofxOscBundle.cpp in Sources */,
+				F2D98FCA2216A2A800A3B3A0 /* clearShader.frag in Sources */,
 				640279EE111671BD026CB013 /* ofxOscReceiver.cpp in Sources */,
 				8F5205AEF8861EF234F0651A /* ofxOscSender.cpp in Sources */,
 				62545D179C94265CA1389D4A /* OscOutboundPacketStream.cpp in Sources */,
