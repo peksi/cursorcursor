@@ -6,14 +6,6 @@
     <roomSetup>
         <projectionSurfaces>
             <element>
-                <beginX>10</beginX>
-                <beginY>10</beginY>
-                <endX>500</endX>
-                <endY>90</endY>
-                <wallId>1</wallId>
-                <projectionId>1</projectionId>
-            </element>
-            <element>
                 <beginX>200</beginX>
                 <beginY>0</beginY>
                 <endX>500</endX>
