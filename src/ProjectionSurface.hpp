@@ -40,10 +40,13 @@ public:
     ofVec3f contactPoint;
     
     /// \brief Returns the point where ray is pointing in projecting canvas coordinate space (x,y)
-    vector<float> contactPointToProjectionSurfaceCoord();
+    ofVec2f contactPointToProjectionSurfaceCoord();
     bool rayContact;
     
     vector<ofVec3f> surfaceInWorldCoords;
+    
+    float projectionWidth;
+    float projectionHeight;
 private:
 };
 

@@ -8,7 +8,9 @@
 #include "ProjectionSurface.hpp"
 
 ProjectionSurface::ProjectionSurface() {
-    
+    if(!projectionShader.load("projectionShader")) {
+        cout << "Could not load shader correctly" << endl;
+    }
 }
 void ProjectionSurface::setup(vector<ofVec2f> _wallCoords, vector<ofVec2f> _projectionCoords, int _projectionId) {
     
@@ -26,8 +28,8 @@ void ProjectionSurface::setup(vector<ofVec2f> _wallCoords, vector<ofVec2f> _proj
     
     float projectionWallWidth = abs(_wallCoords[1].x - _wallCoords[0].x);
     float projectionWallHeight = abs(_wallCoords[1].y - _wallCoords[0].y);
-    float projectionWidth = abs(_projectionCoords[1].x - _projectionCoords[0].x);
-    float projectionHeight = abs(_projectionCoords[1].y - _projectionCoords[0].y);
+    projectionWidth = abs(_projectionCoords[1].x - _projectionCoords[0].x);
+    projectionHeight = abs(_projectionCoords[1].y - _projectionCoords[0].y);
     projectionFbo.allocate(projectionWidth, projectionHeight);
     
     cout << "Projection added to wall with coordinates: ";
@@ -168,7 +170,7 @@ ofVec3f ProjectionSurface::raySurfaceIntersectionCoord(ofVec3f* rayOrigin, ofVec
     return contactPoint;
 }
 
-vector<float> ProjectionSurface::contactPointToProjectionSurfaceCoord(){
+ofVec2f ProjectionSurface::contactPointToProjectionSurfaceCoord(){
     ofVec3f lb = ofVec3f(surfaceStart.x, surfaceStart.y, 0);
     ofVec3f rt = ofVec3f(surfaceEnd.x, surfaceEnd.y, 200);
     
@@ -184,9 +186,9 @@ vector<float> ProjectionSurface::contactPointToProjectionSurfaceCoord(){
 //    cout << "ratioY " << ratioY << endl;
     cout << "ratioZ " << ratioZ << endl;
     
-    vector<float> retVect;
-    retVect.push_back(ratioX);
-    retVect.push_back(ratioZ);
+    ofVec2f retVect;
+    retVect.x = ratioX;
+    retVect.y = ratioZ;
     
     return retVect;
 }
@@ -200,8 +202,14 @@ void ProjectionSurface::displayProjectionFbo() {
     }
 }
 void ProjectionSurface::drawProjectionFbo() {
+    ofVec2f contactPointsProjection = contactPointToProjectionSurfaceCoord();
+    ofClear(0);
     projectionFbo.begin();
     projectionShader.begin();
+    projectionShader.setUniform2f("u_resolution", projectionWidth, projectionHeight);
+    projectionShader.setUniform2f("u_contactPoint", contactPointsProjection.x,contactPointsProjection.y);
+    projectionShader.setUniform2f("u_mousePosition", ofGetMouseX(), ofGetMouseY());
+    projectionShader.setUniform1f("u_time",ofGetElapsedTimeMillis());
         ofPushMatrix();
         ofTranslate(abs(projectionCoordVector[1].x - projectionCoordVector[0].x)/2,
                     abs(projectionCoordVector[1].y - projectionCoordVector[0].y)/2);
