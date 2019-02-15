@@ -134,7 +134,6 @@ void Eyetracker::updateDetectedEyes() {
         // thanks of, but it's openCV for now
         cv::Mat imageMat = toCv(grayscaleFrame);
         
-        
         cv::Rect roi = object;
         cv::Mat roiImg = imageMat(roi);
         cv::equalizeHist(roiImg, roiImg);
