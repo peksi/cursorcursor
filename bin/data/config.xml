@@ -14,19 +14,19 @@
                 <projectionId>1</projectionId>
             </element>
             <element>
-                <beginX>10</beginX>
-                <beginY>90</beginY>
+                <beginX>200</beginX>
+                <beginY>0</beginY>
                 <endX>500</endX>
                 <endY>300</endY>
                 <wallId>2</wallId>
                 <projectionId>2</projectionId>
             </element>
             <element>
-                <beginX>50</beginX>
-                <beginY>00</beginY>
-                <endX>200</endX>
-                <endY>90</endY>
-                <wallId>3</wallId>
+                <beginX>700</beginX>
+                <beginY>0</beginY>
+                <endX>1000</endX>
+                <endY>300</endY>
+                <wallId>2</wallId>
                 <projectionId>3</projectionId>
             </element>
         </projectionSurfaces>
