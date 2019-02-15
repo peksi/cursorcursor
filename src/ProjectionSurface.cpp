@@ -203,7 +203,7 @@ void ProjectionSurface::displayProjectionFbo() {
 }
 void ProjectionSurface::drawProjectionFbo() {
     ofVec2f contactPointsProjection = contactPointToProjectionSurfaceCoord();
-    ofClear(0);
+
     projectionFbo.begin();
     projectionShader.begin();
     projectionShader.setUniform2f("u_resolution", projectionWidth, projectionHeight);
